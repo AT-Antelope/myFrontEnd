@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script type="text/javascript">
+        window.onload = function () {
+            var h1 = document.querySelector('h1');
+            var flag=-150;
+            setInterval(function(){
+                flag+=10;
+                if (flag>460) {
+                    flag = -150;
+                }
+                h1.style.backgroundPosition=flag+'px';
+            },1000/30);
+
+        };
+    </script>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background-color: black;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 50px;
+            display: inline-block; /*让h1元素本身居中*/
+            color: rgba(255,255,255,.3);
+            font: bold 80px "微软雅黑";
+            /*白色背景从透明过渡到不透明再过渡到透明*/
+            background-image: linear-gradient(120deg,rgba(255,255,255,0) 30px,rgba(255,255,255,1) 90px,rgba(255,255,255,0) 150px);
+            background-repeat: no-repeat; /*设置不重复，否则光斑到底时会同时出现两个光斑*/
+            -webkit-background-clip: text; /*将背景透明只作用于文本上*/
+            /*以下为用css实现*/
+            /*transition:2s;*/
+            /*background-position-x:-150px;*/
+        }
+        /*h1:hover{
+            background-position:500px 0;
+        }*/
+    </style>
+</head>
+<body>
+    <h1>Antelope</h1>
+</body>
+</html>

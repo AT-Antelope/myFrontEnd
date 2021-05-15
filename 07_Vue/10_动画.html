@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        /* 1. vue动画的理解
+            操作css的trasition或animation
+            vue会给目标元素添加/移除特定的class
+        2. 基本过渡动画的编码
+            1). 在目标元素外包裹<transition name="xxx">
+            2). 定义class样式
+                1>. 指定过渡样式: transition
+                2>. 指定隐藏时的样式: opacity/其它
+        3. 过渡的类名
+            xxx-enter-active: 指定显示的transition
+            xxx-leave-active: 指定隐藏的transition
+            xxx-enter: 指定隐藏时的样式 */
+
+        /* dv */
+        /* 定义过度动画 */
+        .xxx-enter-active,
+        .xxx-leave-active {
+            transition: opasity 1s;
+        }
+
+        /* 隐藏时的样式 */
+        .xxx-enter,
+        .xxx-leave-to {
+            opacity: 0;
+        }
+
+
+        /* dv2 */
+        .move-enter,
+        .move-leave-to {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        .move-leave-active {
+            transition: all 2s;
+        }
+
+        .move-enter-active {
+            transition: all 1s;
+        }
+
+
+        /* dv3 */
+        /* 加上红色背景后会发现，这是参照整行的中心来放大缩小，加个inline-block即可解决 */
+        .scale-enter-active {
+            animation: myScale 1s;
+        }
+
+        .scale-leave-active {
+            animation: myScale 1s reverse;
+        }
+
+        @keyframes myScale {
+            0% {
+                transform: scale(0);
+            }
+
+            50% {
+                transform: scale(1.5);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+
+        }
+    </style>
+    <script src="../scripts\Vue\vue.js"></script>
+    <script>
+        window.onload = function () {
+            new Vue({
+                el: '#dv',
+                data() {
+                    return {
+                        isShow: true
+                    }
+                }
+            })
+
+            new Vue({
+                el: '#dv2',
+                data: {
+                    isShow: true
+                }
+            })
+
+            new Vue({
+                el: '#dv3',
+                data: {
+                    isShow: true
+                }
+            })
+        };//onload
+    </script>
+</head>
+
+<body>
+    <div id="dv">
+        <button @click=isShow=!isShow>toggle</button>
+        <transition name="xxx">
+            <p v-show="isShow">Hey there!</p>
+        </transition>
+    </div>
+
+    <div id="dv2">
+        <button @click=isShow=!isShow>toggle</button>
+        <transition name="move">
+            <p v-show="isShow">Hey there!</p>
+        </transition>
+    </div>
+
+    <!-- 加上红色背景后会发现，这是参照整行的中心来放大缩小，加个inline-block即可解决 -->
+    <div id="dv3">
+        <button @click=isShow=!isShow>toggle</button>
+        <br>
+        <transition name="scale">
+            <p v-show="isShow" style="background:aqua; display: inline-block;">Hey there!</p>
+        </transition>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <link href="../scripts/bootstrap/bootstrap.css" rel="stylesheet" />
+    <style type="text/css">
+        .container {
+            background: burlywood;
+        }
+
+        div[class|=col] { /*模糊查询,以col开头*/
+            border: 1px solid;
+        }
+        /*
+            面试问到less怎么递归，可以说看过栅格源码(提醒)  !important
+            自写: 将值传给一个参数，在混合最后调用，将参数传给下一个要递归的混合
+        */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <!-- 默认分为12列 -->
+            <div class="col-lg-10 col-md-6">col-lg-10</div>
+            <div class="col-lg-2 col-md-6">col-lg-2</div>
+        </div>
+    </div>
+</body>
+<script src="../scripts/jquery-3.4.1.js"></script>
+<script src="../scripts/bootstrap/bootstrap.js"></script>
+</html>

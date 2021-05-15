@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script type="text/javascript">
+        window.onload = function () {
+            /*
+            表单验证反馈:
+            valueMissing        输入值为空时返回true
+            typeMismatch        控件值为预期类型不匹配返回true
+            patternMismatch     输入值不满足pattern正则值返回true
+
+            比较鸡肋:
+            toolong             超过maxLength最大限制返回true
+            rangeUnderFlow      验证range的最小值返回true
+            rangeOverfFlow      验证range的最大值返回true
+            stepMisamtch        验证range的当前值是否符合mix，max，step的规则返回true
+
+            customError         不符合自定义验证返回true
+            */
+            var inputElement = document.querySelector('input');
+            var btnSubmit = document.querySelectorAll('input')[1];
+            btnSubmit.onclick=function() {
+                var value = inputElement.value;
+                if (value=='AT') {      //分大小写
+                    btnSubmit.setCustomValidity('请不要输入敏感词');
+                } else {
+                    btnSubmit.setCustomValidity('');
+                }
+
+            };//invalid
+
+            btnSubmit.addEventListener('invalid', function () {
+                console.log('this.validity');   //可查看出错方式
+            });//invalid
+
+        };//onload
+    </script>
+</head>
+<body>
+    <form action="/" method="post">
+        <input type="text" required />
+        <input type="submit" name="name" value="submit" />
+    </form>
+</body>
+</html>

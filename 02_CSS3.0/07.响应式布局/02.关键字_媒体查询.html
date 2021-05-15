@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrap {
+            width: 100px;
+            height: 100px;
+            border: 1px solid;
+            margin: 100px auto;
+        }
+
+        /*
+            width
+            height
+            device-width
+            device-pixel-ratio  设备像素比  (必需加webkit前缀)
+            orientation:     porteait竖屏  landscape横屏
+        */
+
+        /*
+            and:代表与的意思，一般用and来连接媒体类型和媒体属性
+            only:和浏览器兼容性有关，老版本浏览器只支持媒体类型不支持媒体属性的查询
+            ,: 代表或的意思，or
+
+         */
+
+        @media screen and (orientation:landscape) and (-webkit-device-pixel-ratio:2){
+            #wrap{
+                border:10px solid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+
+    </div>
+</body>
+</html>

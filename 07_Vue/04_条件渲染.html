@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../scripts/Vue/vue.js"></script>
+    <script>
+        window.onload = function () {
+            new Vue({
+                el: '#dv',
+                data: {
+                    ok: false
+                }
+            });//Vue
+        };//onload
+    </script>
+</head>
+
+<body>
+    <div id="dv">
+        <!-- 增加或移除标签 -->
+        <p v-if="ok">successful</p>
+        <p v-else>fail</p>
+
+        <hr>
+
+        <!-- 控制样式，style="display:none" -->
+        <p v-show="ok">successful</p>
+        <p v-show="!ok">fail</p>
+
+        <button @click="ok=!ok">switch</button>
+    </div>
+</body>
+
+</html>

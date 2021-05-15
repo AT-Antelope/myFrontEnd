@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+    <link href="../scripts/bootstrap/bootstrap.css" rel="stylesheet" />
+    <style type="text/css">
+        .row{
+            background:aqua;
+        }
+        div[class|=col]{
+            border:1px solid burlywood;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <!-- 通过设置offset来实现居中,相当于改margin-left -->
+            <div class="col-lg-4 col-lg-offset-4">col-lg-4</div>
+        </div>
+    </div>
+</body>
+<script src="../scripts/jquery-3.4.1.js"></script>
+<script src="../scripts/bootstrap/bootstrap.js"></script>
+</html>

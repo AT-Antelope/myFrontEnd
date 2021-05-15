@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../scripts/Vue/vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            const vm = new Vue({
+                el: '#dv',
+                data: {
+                    firstName: '',
+                    lastName: '',
+                    // fullName: firstName + lastName
+                },
+                //什么时候执行:初始化显示/相关的data属性数据发生改变
+                computed: {      //计算属性中的一个方法，方法的返回值作为属性值
+                    fullName() {
+                        return this.firstName + ' ' + this.lastName;
+                    },
+                    //通过getter/setter实现对数据的 "显示和监视"
+                    //回调函数，当需要读取当前属性值时回调，根据相关的数据计算并返回当前属性的值
+                    //1.你定义的    2.你没有调用    3.但最终它执行了
+                    fullName3: {    //双向绑定
+                        get() {
+                            return this.firstName + ' ' + this.lastName;
+                        },
+                        //回调函数，监视当前属性值变化，当属性值发生改变时回调，更新相关的属性数据
+                        set(value) {    //value就是fullName3的最新属性值
+                            const name = value.split(' ');
+                            this.firstName = name[0];
+                            this.lastName = name[1];
+                        }
+                    }
+                },
+                watch: {   //配置监视 
+                    firstName: function (value) {   //当firstName发生改变时
+                        console.log(this);  //vm对象
+                        this.fullName2 = value + ' ' + this.lastName;
+                    }
+                }
+            });
+
+            vm.$watch('lastName', function (value) {
+                //更新fullName2
+                this.fullName2 = this.firstName + ' ' + value;
+            });
+        };//onload
+    </script>
+</head>
+
+<body>
+    <div id="dv">
+        名:<input type="text" placeholder="First Name" v-model="firstName"><br>
+        姓:<input type="text" placeholder="Last Name" v-model="lastName"><br>
+        姓名1(单向):<input type="text" placeholder="Full Name" v-model="fullName"><br>
+        姓名2(单向):<input type="text" placeholder="Full Name" v-model="fullName2"><br>
+        姓名3(双向):<input type="text" placeholder="Full Name" v-model="fullName3"><br>
+    </div>
+</body>
+
+</html>

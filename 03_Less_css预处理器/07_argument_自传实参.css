@@ -1,0 +1,6 @@
+#wrap {
+  width: 300px;
+  height: 300px;
+  /*一般不用*/
+  border: 10px solid #00ffff;
+}

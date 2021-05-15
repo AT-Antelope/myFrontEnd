@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script type="text/javascript">
+        window.onload = function () {
+            var inner = document.querySelector('#wrap > .inner');
+            document.getElementById('wrap').onmouseover = function () {
+                var flag = 0;
+                var intervalID = setInterval(function () {
+                    flag++; //每次只在进入定时器里时重新++，所以永远为1
+                    if (flag == 300) {
+                        flag = 0;
+                    }
+                    inner.style.marginTop = -flag + 'px';
+                    startFlag = 1;
+                }, 1000 / 60);    //60帧
+
+                document.getElementById('wrap').onmouseout = function () {
+                    clearInterval(intervalID);
+                }
+
+            }
+
+        }
+    </script>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #wrap {
+            width: 40px;
+            height: 300px;
+            border: 1px solid;
+            margin: 100px auto;
+            overflow: hidden;
+        }
+
+            #wrap > .inner {
+                height: 600px;
+                background-image: repeating-linear-gradient(149deg,black 0px,black 10px,white 10px,white 20px);
+            }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div class="inner"></div>
+    </div>
+</body>
+</html>

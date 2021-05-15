@@ -1,0 +1,157 @@
+﻿@import url('../scripts/nomal_css/reset.css');
+
+.progress-minin() {
+    position: relative;
+
+    & > .wrap {
+        position: absolute;
+        width: 100%; //靠内容撑开，需要手动100%
+        height: 3px;
+        background: #737373;
+        margin-top: 11px;
+
+        .inner {
+            position: absolute;
+            width: 9px;
+            height: 7px;
+            background: white;
+            border-radius: 2px; /*2px圆角*/
+            margin-top: -1px; //手动对准进度条
+            cursor: default !important;
+        }
+    }
+
+    & > .playedProgress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        background: orange;
+        height: 3px;
+        margin-top: 11px;
+    }
+}
+
+
+html, body { //取消去除滚动条才能实现min-width
+    height: 100%;
+    overflow: hidden;
+}
+
+#wrap {
+    height: 100%;
+    overflow: hidden;
+    background: #383838;
+    font-size: 0; //可去掉控件与媒体间的空隙
+    .control {
+        position: relative;
+        height: 25px;
+        background: #2a2a2a;
+        width: auto;
+
+        .btns {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 55px;
+            height: 25px;
+            text-align: center;
+
+            & > span {
+                display: inline-block;
+                cursor: pointer;
+                width: 15px;
+                height: 14px;
+                background: url(../pic/ico/controlStrip.png) no-repeat;
+                margin: 4px 7px 0 0;
+
+                &:nth-child(1) {
+                    background-position: 0px -26px;
+
+                    &.active {
+                        background-position: 0px -13px;
+                    }
+                }
+
+                &:nth-child(2) {
+                    background-position: 0px 0px;
+                }
+            }
+        }
+
+        & > .progress { //改为同级下的progress，否则.other里也有个.progress进度条，颜色也会一起改为#737373
+            height: 25px;
+            margin: 0 230px 0 55px;
+            min-width: 600px;
+            .progress-minin();
+        }
+
+        .other {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 230px;
+            height: 25px;
+
+            & div { //tips:原为& > div，且应放.sound里但不起作用，现放父元素里
+                height: 25px;
+                float: left; //需要浮动后才能显示到同一行
+            }
+
+            .time {
+                width: 120px;
+                text-align: center;
+
+                & > span {
+                    font-size: 12px;
+                    color: white;
+                    line-height: 25px;
+                    cursor: text;
+                }
+            }
+
+            .sound {
+                width: 80px;
+                height: 25px;
+
+                .switch {
+                    width: 20px;
+                    height: 25px;
+                    text-align: center;
+
+                    & > span {
+                        display: inline-block;
+                        cursor: pointer;
+                        margin: 6px auto;
+                        width: 13px;
+                        height: 12px;
+                        background: url(../pic/ico/controlStrip.png) no-repeat;
+                        background-position: 0px -40px; //反向-53
+                    }
+                }
+
+                .progress {
+                    width: 60px;
+                    height: 25px;
+                    .progress-minin();
+                }
+            }
+
+            .full-screen {
+                width: 30px;
+                height: 25px;
+                text-align: center;
+
+                & > span {
+                    display: inline-block;
+                    cursor: pointer;
+                    margin: 6px auto;
+                    width: 15px;
+                    height: 12px;
+                    background: url(../pic/ico/controlStrip.png) no-repeat;
+                    background-position: 0px -67px; //反向-80
+                }
+            }
+        }
+    }
+}

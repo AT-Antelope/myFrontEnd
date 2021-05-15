@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        /*BFC:Block Formatting Context,直译为"块级格式化上下文"，他是一个独立的渲染区域，只有Block-level box参与，它规定了内部的Block-level box如何布局，并且与这个区域外部毫无相干
+
+            BFC什么时候出现(哪些元素会生成BFC):
+            1.根元素
+            2.float 属性不为 none
+            3.position 为 absolute 或 fixed
+            4.overflow 不为 visible
+            5.display 为 inline-block , table-cell , table-caption , flex , inline-flex
+
+            如何开启BFC:
+            1.设置元素浮动，会导致父元素宽度丢失，且父元素脱离文档流，导致后面的元素会顶上来
+            2.设置元素绝对定位
+            3.设置元素为inline-block,同样会导致父元素宽度丢失
+            4.将元素的overflow设置为非visible的值,如overflow:auto(推荐方式，副作用较小)
+
+          IFC;Inline Formatting Context */
+        /*两列布局考的就是BFC*/
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            height: 200px;
+        }
+
+        #left {
+            width: 200px;
+            background: pink;
+            float: left;
+        }
+
+        #right {
+            background: deeppink;
+            overflow:hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="left">left</div>
+    <div id="right">right</div>
+</body>
+</html>

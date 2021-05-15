@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            /*background: aqua;*/
+        }
+
+        #test {
+            background: burlywood; /*画布默认继承body背景色*/
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var canvas = document.querySelector('#test');
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d');
+
+                //二次贝塞尔曲线
+                //视觉辅助线
+                //ctx.beginPath();
+                //ctx.moveTo(50, 50);
+                //ctx.lineTo(300, 0);
+                //ctx.lineTo(200, 200);
+                //ctx.stroke();
+
+                //ctx.beginPath();
+                //ctx.moveTo(50, 50);
+                //ctx.quadraticCurveTo(300, 0, 200, 200);   //quadraticCurveTo(cp1x,cp1y,x2,y2)       cp1x/y为控制点，x/y为结束点
+                //ctx.stroke();
+
+
+                //三次贝塞尔曲线，和arcTo不同，贝塞尔曲线必须经过两端顶点
+                //视觉辅助线
+                ctx.beginPath();
+                ctx.moveTo(50, 50);
+                ctx.lineTo(300, 0);
+                ctx.lineTo(0, 300);
+                ctx.lineTo(300, 300);
+                ctx.stroke();
+
+
+                ctx.beginPath();    
+                ctx.moveTo(50, 50);
+                ctx.bezierCurveTo(300, 0, 0,300,300,300);   //quadraticCurveTo(cp1x,cp1y,cp2x,cp2y,x2,y2)     cp1x/y,cp2x/y为控制点，x/y为结束点
+                ctx.stroke();
+
+            }
+        };//onload
+    </script>
+</head>
+<body>
+    <canvas id="test" width="300" height="300">
+        <span>您的浏览器不支持画布元素，请您换成萌萌的谷歌</span> <!-- IE8及以下不支持canvas，可作为替代内容 -->
+    </canvas>
+</body>
+</html>

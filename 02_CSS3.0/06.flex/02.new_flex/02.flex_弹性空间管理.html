@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrap {
+            width: 400px;
+            height: 300px;
+            border: 1px solid;
+            margin: 100px auto;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+            #wrap > .item {
+                width: 50px;
+                height: 50px;
+                border: 1px solid gray;
+                background: aqua;
+                text-align: center;
+                line-height: 50px;
+                /*弹性空间管理:将主轴上的富裕空间按比例分配到项目上的width上(优先按flex-basis计算)*/
+                /*增长和收缩都有专门的计算公式*/
+                flex-grow: 1;   /*增长，默认值为0*/
+                /*flex-shrink:1;*/  /*收缩，默认值为1*/
+            }
+            #wrap > .item:nth-child(1){
+                flex-grow:4;
+            }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+    </div>
+</body>
+</html>

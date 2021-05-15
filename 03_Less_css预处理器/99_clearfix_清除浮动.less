@@ -1,0 +1,11 @@
+﻿//Clearfix
+.clearfix{  //加了括号变混合，不能继承
+    &:before,
+    &:after{
+        content:" ";
+        display:table;
+    }
+    &:after{
+        clear:both;
+    }
+}

@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <link href="../scripts/bootstrap/bootstrap.css" rel="stylesheet" />
+    <style type="text/css">
+        .container-fluid {
+            background: aqua;
+        }
+
+        .container {
+            background: burlywood;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- 自适应弹性布局，相当于 width:100%，此class在bootstrap.css内 -->
+        流体容器
+    </div>
+    <!-- ===================================================================================== -->
+    <div class="container">
+        固定容器
+        <!--设计时必须严格按照从小到大，从xs到lg的顺序排列，上面的样式读完后，下面的样式会覆盖上面的定义(移动端优先)
+                    窗口width阈值:   >=1200     width>=992       width>=768        <=768
+                    容器width:        1170         970              750             auto
+                            width: (1140+槽宽)   (940+槽宽)      (720+槽宽)
+        库里媒体查询定义的变量名   lg(大屏PC)   md(中屏PC)       sm(平板)       xs(移动终端)
+                               如:   @screen-lg-min
+                     -->
+    </div>
+    <!-- ===================================================================================== -->
+</body>
+<script src="../scripts/jquery-3.4.1.js"></script>
+<script src="../scripts/bootstrap/bootstrap.js"></script>
+</html>

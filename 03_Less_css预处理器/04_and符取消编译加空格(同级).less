@@ -1,0 +1,28 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+#wrap {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    margin: 100px auto;
+    border: 1px solid;
+
+    .inner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        width: 100px;
+        height: 100px;
+        background: aqua;
+
+        &:hover {   /* 嵌套规则:&号可以在编译时取消开头自动加的空格,取消父子关系，等于平级 */
+            background:mediumaquamarine;
+        }
+    }
+}

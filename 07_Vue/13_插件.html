@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../scripts\Vue\vue.js"></script>
+    <script src="./13_myPlugin.js"></script>
+    <script>
+        window.onload = function () {
+            //声明使用插件(安装插件:调用插件的install())
+            Vue.use(MyPlugin);  //内部会调用插件对象的install()
+
+            const vm = new Vue({
+                el: '#dv',
+                data: {
+                    msg: 'Hey there'
+                }
+            })
+
+            Vue.myGlobalMethod();
+            vm.$myMethod();
+
+        };//onload
+    </script>
+</head>
+
+<body>
+    <div id="dv">
+        <p v-my-directive="msg"></p>
+    </div>
+</body>
+
+</html>

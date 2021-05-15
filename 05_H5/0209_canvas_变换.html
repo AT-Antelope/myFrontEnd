@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        #test{
+            position:absolute;
+            top:0;
+            right:0;
+            bottom:0;
+            left:0;
+            margin:auto;
+            background:aqua;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var canvas = document.querySelector('#test');
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d');
+
+                ////translate(x,y)
+                //ctx.translate(50, 50);  //将原点移动到指定位置
+                //ctx.translate(50, 50);  //和css中重复定义不同，canvas中是累加操作，即原点变为100,100
+                //ctx.beginPath();
+                //ctx.fillRect(0, 0, 100, 100);   //原地改为50,50     所以以50,50开始计算
+
+
+                ////rotate(angle)，弧度，坐标轴也会跟着旋转
+                //ctx.translate(50, 50);
+                //ctx.rotate(45 * Math.PI / 180);
+                //ctx.beginPath();
+                //ctx.fillRect(0, 0, 100, 100);   //绘图方法中的x，y与translate不等价
+
+
+                //scale，css像素是一个抽象单位
+                //放大:放大css像素的面积，画布内css像素的个数变少
+                //缩小:缩小css像素的面积，画布内css像素的个数变多
+                ctx.scale(.5, .5);
+                ctx.beginPath();
+                ctx.fillRect(150, 150, 100, 100);
+
+            }
+
+        };//onload
+    </script>
+</head>
+<body>
+    <canvas id="test" width="300" height="300">
+        <span>您的浏览器不支持canvas，请换成谷歌</span>
+    </canvas>
+</body>
+</html>

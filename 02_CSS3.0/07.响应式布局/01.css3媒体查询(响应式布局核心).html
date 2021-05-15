@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrap {
+            width: 100px;
+            height: 100px;
+            border: 1px solid;
+            margin: 100px auto;
+        }
+
+        /*
+            width
+            height 
+            device-width
+            device-pixel-ratio  设备像素比  (必需加webkit前缀)
+            orientation:     porteait竖屏  landscape横屏
+        */
+
+        /*screen有顺序分明，类似于if，优先采用后者    print时不分先后顺序*/
+        /*@media screen {
+            #wrap {
+                border: 10px solid;
+            }
+        }*/
+
+        /*浏览器窗口的width在300px时才生效(可加min max前缀)*/
+        @media screen and (width:300px){
+            #wrap{
+                border:10px solid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+
+    </div>
+</body>
+</html>

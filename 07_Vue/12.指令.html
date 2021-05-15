@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        /* 属性选择器，在元素加载出来之前，隐藏标签，加载完后属性消失，自动取消样式 */
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+    <script src="../scripts\Vue\vue.js"></script>
+    <script>
+        //   常用内置指令
+        //   v:text : 更新元素的 textContent
+        //   v-html : 更新元素的 innerHTML
+        //   v-if : 如果为true, 当前标签才会输出到页面
+        //   v-else: 如果为false, 当前标签才会输出到页面
+        //   v-show : 通过控制display样式来控制显示/隐藏
+        //   v-for : 遍历数组/对象
+        //   v-on : 绑定事件监听, 一般简写为@
+        //   v-bind : 强制绑定解析表达式, 可以省略v-bind
+        //   v-model : 双向数据绑定
+        //   ref : 为某个元素注册一个唯一标识, vue对象通过$refs属性访问这个元素对象
+        //   v-cloak : 使用它防止闪现表达式, 与css配合: [v-cloak] { display: none }
+
+
+        // alert('loading');    //在窗口加载完后提示，显现出cloak的效果
+        window.onload = function () {
+
+            new Vue({
+                el: '#dv',
+                data: {
+                    textCloak: 'cloak'
+                },
+                methods: {
+                    click() {
+                        alert(this.$refs.content.textContent);
+                    }
+                }
+            })
+
+
+            //自定义指令
+            // 全局指令
+            // el:指令所在的标签对象
+            // binding:包含指令相关信息数据的对象,内包括对象里的多个属性，其中有一个是value
+            Vue.directive('text-upper', function (el, binding) {
+                // console.log(el, binding);
+                el.textContent = binding.value.toUpperCase();
+            })
+
+            new Vue({
+                el: "#dv2",
+                data: {
+                    msg2: 'Hey there! Go Go Go!'
+                }
+            })
+
+            //局部指令
+            new Vue({
+                el: "#dv3",
+                data: {
+                    msg3: 'Protect The Bomb!'
+                },
+                directives: {
+                    //由于有特殊字符，如'-'，所以需要用单引号框起来
+                    'text-lower': function (el, binding) {
+                        el.textContent = binding.value.toLowerCase();
+                    }
+                }
+            })
+
+        };//onload
+    </script>
+</head>
+
+<body>
+    <div id="dv">
+        <h2>ref</h2>
+        <p ref="content">Hey there!</p>
+        <button @click="click">Tip</button>
+
+        <h2>v-cloak</h2>
+        <p v-cloak>{{textCloak}}</p>
+    </div>
+
+
+
+    <hr>
+    <h2>自定义指令</h2>
+    <hr>
+    <div id="dv2">
+        <p v-text-upper="msg2"></p>
+        <!-- <p v-text-lower="msg2"></p> -->
+    </div>
+
+    <div id="dv3">
+        <p v-text-upper="msg3"></p>
+        <p v-text-lower="msg3"></p>
+    </div>
+
+</body>
+
+</html>

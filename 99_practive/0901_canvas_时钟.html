@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            background: burlywood;
+        }
+
+        #clock {
+            background: aqua;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate3d(-50%,-50%,0);
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var clock = document.querySelector('#clock');
+            if (clock.getContext) {
+                var ctx = clock.getContext('2d');
+
+                setInterval(function () {
+                    ctx.clearRect(0, 0, clock.width, clock.height); //清除时原点不能被动过，不然原点的负方向清不了
+                    move();
+                }, 1000);
+                move(); //加载时运行一次，避免延迟
+                function move() {
+                    //init初始化
+                    ctx.save();
+                    ctx.translate(200, 200);    //原点移到画布中心
+                    ctx.rotate(-90 * Math.PI / 180);    //坐标系逆时针旋转90度，使开始角度默认向上，正方向变为x轴向上，y轴向右
+                    ctx.lineWidth = 8;
+                    ctx.strokeStyle = 'black';
+                    ctx.lineCap = 'round';
+                    ctx.beginPath();
+
+                    //外层空心表盘    w14,r140
+                    ctx.save();
+                    ctx.lineWidth = 14;
+                    ctx.strokeStyle = '#325FA2';
+                    ctx.beginPath();
+                    ctx.arc(0, 0, 140, 0, 360 * Math.PI / 180);
+                    ctx.stroke();
+                    ctx.restore();
+
+                    //时针刻度  long20,w8,外层空心表盘与刻度间的距离也是20
+                    ctx.save();
+                    //ctx.lineWidth = 8;    //初始即为8，可以省略，前一个被弹掉后就回到init状态
+                    for (var i = 0; i < 12; i++) {
+                        ctx.beginPath();
+                        ctx.rotate(30 * Math.PI / 180); //rotate能自动己叠加，不需要手动添加度数
+                        ctx.moveTo(100, 0);
+                        ctx.lineTo(120, 0);
+                        ctx.stroke()
+                    }
+                    ctx.restore();
+
+                    //分针刻度  w4,long3
+                    ctx.save();
+                    ctx.lineWidth = 4;
+                    for (var i = 0; i < 60; i++) {
+                        ctx.rotate(6 * Math.PI / 180);  //移出if外，否则会少 时针刻度数 个分针刻度
+                        if ((i + 1) % 5 != 0) {       //和时针刻度重叠时，不绘制分针刻度，提高性能,+1后第一个不会空开
+                            ctx.beginPath();
+                            ctx.moveTo(117, 0);
+                            ctx.lineTo(120, 0);
+                            ctx.stroke();
+                        }
+                    }
+                    ctx.restore();
+
+                    //获取时间
+                    var date = new Date();
+                    var s = date.getSeconds();
+                    var min = date.getMinutes() + s / 60;
+                    var h = date.getHours() + min / 60;
+                    h = h > 12 ? h - 12 : h;
+
+                    //时针    w14,圆心外溢出80，收20
+                    ctx.save();
+                    ctx.lineWidth = 14;
+                    ctx.rotate(h * 30 * Math.PI / 180);
+                    ctx.beginPath();
+                    ctx.moveTo(-20, 0);
+                    ctx.lineTo(80, 0);
+                    ctx.stroke();
+                    ctx.restore();
+
+                    //分针    w10,圆心外溢出112，收28
+                    ctx.save();
+                    ctx.lineWidth = 10;
+                    ctx.rotate(min * 6 * Math.PI / 180);
+                    ctx.beginPath();
+                    ctx.moveTo(-28, 0);
+                    ctx.lineTo(112, 0);
+                    ctx.stroke();
+                    ctx.restore();
+
+                    //秒针    color:D40000,w6,圆心外溢出83，收30
+                    ctx.save();
+                    ctx.strokeStyle = '#D40000';
+                    ctx.fillStyle = '#D40000';  //表座用到
+                    ctx.lineWidth = 6;
+                    ctx.rotate(s * 6 * Math.PI / 180);
+                    ctx.beginPath();
+                    ctx.moveTo(-30, 0);
+                    ctx.lineTo(83, 0);
+                    ctx.stroke();
+                    //秒头    96外r10，w6
+                    ctx.beginPath();
+                    ctx.arc(96, 0, 10, 0, 360 * Math.PI / 180); //96 = 秒针long83 + r10 + w6/2=3
+                    ctx.stroke();
+                    //表座    r10
+                    ctx.beginPath();
+                    ctx.arc(0, 0, 10, 0, 360 * Math.PI / 180);
+                    ctx.fill();
+                    ctx.restore();
+
+
+                    ctx.restore();//init
+
+                }
+
+            }
+
+        };//onload
+    </script>
+</head>
+<body>
+    <canvas id="clock" width="400" height="400"></canvas>
+</body>
+</html>

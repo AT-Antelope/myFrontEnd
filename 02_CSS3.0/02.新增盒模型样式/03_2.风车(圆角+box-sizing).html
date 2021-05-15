@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            /*禁止滚动条*/
+            height:100%;
+            overflow:hidden;
+        }
+
+        #wrap {
+            width: 300px;
+            height: 300px;
+            /*border: 1px solid;*/  /*test codes*/
+            /*居中*/
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            /*设置旋转时间*/
+            transition-duration:99s;
+        }
+
+            #wrap > div {
+                margin: 10px;
+                width: 130px; /* (300-10*4)/2=130px */
+                height: 130px;
+                border: 1px solid;
+                background-color: aqua;
+                /*使内部div排列，盒模型最大尺寸被限制时，盒内容会往里缩，实现排列*/
+                float: left;
+                box-sizing: border-box;
+            }
+
+            #wrap > div:first-child,#wrap > div:last-child{
+                border-radius:0 65px;
+            }
+            #wrap >div:nth-child(2),#wrap >div:nth-child(3){
+                border-radius:65px 0;
+            }
+            #wrap:hover{
+                /*旋转角度*/
+                transform:rotate(99999deg);   /* deg:degree    角度*/
+            }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</body>
+</html>

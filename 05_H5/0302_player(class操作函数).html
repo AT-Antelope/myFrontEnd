@@ -1,0 +1,405 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title></title>
+  <meta charset="utf-8" />
+  <link href="0302_player.css" rel="stylesheet" />
+  <script src="../scripts/nomal_js/jquery-3.4.1.js"></script>
+  <script src="../scripts/nomal_js/drag.js"></script>
+  <script type="text/javascript">
+    window.onload = function () {
+      //实现视频随视窗大小改变
+      var video = document.querySelector("#wrap > video");
+      var control = document.querySelector("#wrap > .control");
+
+      //先加载一次
+      video.width = document.documentElement.clientWidth;
+      video.height =
+        document.documentElement.clientHeight - control.offsetHeight;
+      //窗口大小改变时再次改变
+      window.onresize = function () {
+        if (document.documentElement.clientWidth > 600) {
+          video.width = document.documentElement.clientWidth;
+          video.height = document.documentElement.clientHeight - control.offsetHeight;
+        }
+      }; //resize
+
+      //工具类:class操作函数,比this.addClass和this.removeClass兼容性更好
+      function addClass(node, className) {
+        var reg = new RegExp("//b" + className + "//b");
+        if (!reg.test(node.className)) {
+          node.className += " " + className;
+        }
+      }
+      function removeClass(node, className) {
+        if (node.className) {
+          var reg = new RegExp("//b" + className + "//b");
+          var classes = node.className;
+          node.className = classes.replace(reg, "");
+          if (/^\s*$/g.test(node.className)) {
+            node.removeAttribute("class");
+          }
+        } else {
+          node.removeAttribute("class");
+        }
+      }
+
+      //时间格式转化    s -> h:min:s
+      function timeFormatTransform(time) {
+        time = parseInt(time);
+        //myIdea:
+        //var h = time / 3600;
+        //h > 0 ? Math.floor(h) : 0;
+        //var min = (time - h * 3600) / 60;
+        //min > 0 ? Math.floor(min) : 0;
+        //var s = (time - h * 3600) - (min * 60);
+        //s > 0 ? Math.floor(s) : 0;
+
+        //Official:
+        var h = Math.floor(time / 3600);
+        var min = Math.floor((time % 3600) / 60);
+        var s = Math.floor((time % 3600) % 60);
+        check(h);
+        check(min);
+        check(s);
+
+        return h + ":" + min + ":" + s;
+      }
+
+      //当数字小于10时前面补0凑够2位数
+      function check(value) {
+        //value < 10 ? '0' + value : value; //直接转换无法实现，需要使用一个新字符串来连接    未解决
+        var stringValue = "";
+        if (value < 10) {
+          stringValue = "0" + value.toString();
+          return stringValue;
+        } else {
+          stringValue = stringValue + value.toString();
+        }
+        return stringValue;
+      }
+
+      var isFullScreen = false;
+      //按钮类功能
+      player();
+      function player() {
+        var divBtns = document.querySelector("#wrap > .control > .btns");
+        var video = document.querySelector("#wrap > video");
+        var spanStart = document.querySelector(
+          "#wrap > .control > .btns > .start"
+        );
+        var spanStop = document.querySelector(
+          "#wrap > .control > .btns > .stop"
+        );
+        var mainProgress = document.querySelector(
+          "#wrap > .control > .progress"
+        );
+        var mainProgressInner = document.querySelector(
+          "#wrap > .control > .progress > .wrap > .inner"
+        );
+        var mainProgressPlayed = document.querySelector(
+          "#wrap > .control > .progress > .playedProgress"
+        );
+        var spanTimeCurrent = document.querySelector(
+          "#wrap>  .control > .other > .time > .current"
+        );
+        var spanTimeDuration = document.querySelector(
+          "#wrap>  .control > .other > .time > .duration"
+        );
+        var spanVolumeSwitch = document.querySelector(
+          "#wrap > .control > .other > .sound > .switch > span"
+        );
+        var progressVolume = document.querySelector(
+          "#wrap > .control > .other > .sound > .progress"
+        );
+        var progressVolumeInner = document.querySelector(
+          "#wrap > .control > .other > .sound > .progress > .wrap > .inner"
+        );
+        var progressVolumePlayed = document.querySelector(
+          "#wrap > .control > .other > .sound > .progress > .playedProgress"
+        );
+        var spanFullScreen = document.querySelector(
+          "#wrap > .control > .other > .full-screen > span"
+        );
+
+        //播放暂停键
+        var timerMainProgress = 0; //intervalID
+        spanStart.onclick = function () {
+          if (video.paused) {
+            //播放
+            addClass(this, "active");
+            this.style.backgroundPosition = "0px -13px"; //tips:暂停后position不恢复到原样，现手动恢复
+            if (flagMainProgressMove == 0) {
+              timerMainProgress = setInterval(mainProgressMove, 100);
+              timerSpanTime = setInterval(spanTimeChange, 1000);
+              flagMainProgressMove == 1;
+            }
+            //调用滑块移动
+            video.play();
+          } else {
+            //暂停
+            removeClass(this, "active");
+            if (flagMainProgressMove == 1) {
+              clearInterval(timerMainProgress); //主进度
+              flagMainProgressMove == 0;
+            }
+            clearInterval(timerSpanTime); //时间进度
+            this.style.backgroundPosition = "0px -26px"; //tips:开始后position不恢复到原样，现手动恢复
+            video.pause();
+          }
+        }; //onclick
+
+        //停止键
+        spanStop.onclick = function () {
+          if (!video.end || video.error) {
+            //video.load(); //直接让用户重新加载是不道德的
+
+            removeClass(this, "active");
+            if (flagMainProgressMove == 1) {
+              clearInterval(timerMainProgress);
+              clearInterval(timerSpanTime);
+            }
+            spanStart.style.backgroundPosition = "0px -26px"; //tips:开始后position不恢复到原样，现手动恢复
+            video.pause();
+            mainProgressInner.style.left = mainProgressPlayed.style.width =
+              0 + "px";
+            video.currentTime = 0;
+          }
+        }; //onclick
+
+        //点击video时播放暂停
+        video.onclick = function () {
+          spanStart.click(); //直接使用开始暂停span点击事件，让spanStart自行判断
+        }; //onclick
+
+        //点击进度条实时同步
+        var flagMainProgressMove = 0;
+        mainProgress.onclick = function (e) {
+          e = e || event;
+          //addClass(spanStart, 'active');
+          //this.style.backgroundPosition = '0px -13px';
+          //video.play();
+
+          if (flagMainProgressMove == 0) {
+            timerMainProgress = setInterval(mainProgressMove, 100);
+            timerSpanTime = setInterval(spanTimeChange, 1000);
+          }
+          video.currentTime =
+            ((e.clientX - mainProgress.offsetLeft) /
+              (mainProgress.clientWidth - mainProgressInner.offsetWidth)) *
+            video.duration;
+        }; //onclick
+
+        //实时进度条
+        function mainProgressMove() {
+          mainProgressInner.style.left = mainProgressPlayed.style.width =
+            (mainProgress.clientWidth - mainProgressInner.offsetWidth) *
+            (video.currentTime / video.duration) +
+            "px"; //除去滑块宽度后的进度条实际长度 * (视频当前时长 / 视频总时长) = 滑块应按比例在进度条中的位置
+        }
+
+        //时间进度span
+        var timerSpanTime = 0;
+        //video.onload = spanTimeChange();    //question:刚加载好时显示不了时间
+        //当video加载好第一帧时
+        video.addEventListener("canplay", function () {
+          //tips:解决上一个问题
+          spanTimeChange();
+        });
+
+        function spanTimeChange() {
+          spanTimeCurrent.innerText = timeFormatTransform(video.currentTime);
+          spanTimeDuration.innerText = timeFormatTransform(video.duration);
+        }
+
+        //静音按钮,-40,-53
+        var volumeFlag = video.volume;
+        spanVolumeSwitch.onclick = function () {
+          if (video.muted) {
+            if (volumeFlag == 0) {
+              volumeFlag = 0.01;
+            }
+            spanVolumeSwitch.style.backgroundPosition = "0px -40px";
+            video.muted = false;
+            video.volume = volumeFlag;
+            volumeProgressChange();
+          } else {
+            spanVolumeSwitch.style.backgroundPosition = "0px -53px";
+            video.muted = true;
+            volumeFlag = video.volume;
+            video.volume = 0;
+            volumeProgressChange();
+          }
+        }; //onclick
+
+        //音量条
+        var timerVolumeProgress = 0;
+        var flagVolumeMouseDown = 0; //音量条拖动实时改变音量
+        //刚加载时满音量
+        video.volume = 1;
+        progressVolumeInner.style.left = progressVolumePlayed.style.width =
+          progressVolume.clientWidth - progressVolumeInner.offsetWidth + "px";
+
+        progressVolume.onclick = function (e) {
+          e = e || event;
+          //debugger
+          video.volume =
+            (1 *
+              (e.clientX -
+                progressVolume.offsetLeft -
+                mainProgress.offsetWidth -
+                divBtns.offsetWidth)) /
+            (progressVolume.clientWidth - progressVolumeInner.offsetWidth);
+          timerVolumeProgress = setInterval(volumeProgressChange, 100);
+
+          flagVolumeMouseDown = 1;
+          progressVolume.onmousemove = function () {
+            if (flagVolumeMouseDown == 1) {
+              //myIdea
+              //video.volume = 1 * (e.clientX - progressVolume.offsetLeft - mainProgress.offsetWidth - divBtns.offsetWidth) / (progressVolume.clientWidth - progressVolumeInner.offsetWidth);
+              //Officials
+              video.volume =
+                progressVolumeInner.offsetLeft /
+                (progressVolume.clientWidth -
+                  progressVolumeInner.offsetWidth);
+            }
+          };
+        };
+
+        function volumeProgressChange() {
+          progressVolumeInner.style.left = progressVolumePlayed.offsetWidth =
+            (progressVolume.clientWidth - progressVolumeInner.offsetWidth) *
+            (video.volume / 1) +
+            "px";
+        }
+
+        progressVolume.onmouseup = function () {
+          clearInterval(timerVolumeProgress);
+          flagVolumeMouseDown = 0;
+        };
+
+        //全屏按钮
+        spanFullScreen.onclick = function () {
+          if (isFullScreen) {
+            isFullScreen = false;
+            if (document.exitFullscreen) {
+              //W3C规范
+              document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+              //FF
+              document.mozCancelFullScreen();
+            } else if (document.webkitCancelFullScreen) {
+              //chrome
+              document.webkitCancelFullScreen();
+            } else if (document.msExitFullScreen) {
+              //IE
+              document.msExitFullScreen();
+            }
+            spanFullScreen.style.backgroundPosition = "0px -67px";
+          } else {
+            isFullScreen = true;
+            var docElement = document.documentElement;
+            if (docElement.requestFullscreen) {
+              //W3C
+              docElement.requestFullscreen();
+            } else if (docElement.mozRequestFullScreen) {
+              //FF
+              docElement.mozRequestFullFullScreen();
+            } else if (docElement.webkitRequestFullscreen) {
+              //chrome等
+              docElement.webkitRequestFullscreen();
+            } else if (docElement.msRequestFullScreen) {
+              //IE11
+              docElement.msRequestFullScreen();
+            }
+            spanFullScreen.style.backgroundPosition = "0px -80px";
+          }
+
+          //双击video内部时    暂未实现
+          video.ondblclick = function () {
+            spanFullScreen.click();
+          };
+        }; //onclick
+      }
+    }; //onload
+
+    $(function () {
+      //使用jquery插件实现主进度条和音量条的拖拽效果
+      var mainObj = $("#wrap > .control > .progress > .wrap > .inner");
+      var volumeObj = $(
+        "#wrap > .control > .other > .sound > .progress > .wrap > .inner"
+      );
+
+      mainObj.dragging({
+        move: "x",
+        randomPosition: false,
+      });
+      volumeObj.dragging({
+        move: "x",
+        randomPosition: false,
+      });
+
+      //实现已读进度条实时同步进度滑块
+      setInterval(function () {
+        $("#wrap > .control > .progress > .playedProgress").width(
+          mainObj.position().left
+        );
+        $(
+          "#wrap > .control > .other > .sound > .progress > .playedProgress"
+        ).width(volumeObj.position().left);
+      }, 500);
+    }); //ready
+  </script>
+</head>
+
+<body>
+  <div id="wrap">
+    <video
+      src="https://vd2.bdstatic.com/mda-mbsrrs5ct9msj1y9/v1-cae/mda-mbsrrs5ct9msj1y9.mp4?v_from_s=hkapp-haokan-hnb&auth_key=1614603145-0-0-a64337844b3844ff7f5219b46c4db746&bcevod_channel=searchbox_feed&pd=1&pt=3&abtest=8_1"></video>
+    <!-- 控件 -->
+    <div class="control">
+      <!-- 开始停止按钮 -->
+      <div class="btns">
+        <span class="start"></span>
+        <span class="stop"></span>
+      </div>
+      <!-- 主进度条 -->
+      <div class="progress">
+        <div class="wrap">
+          <div class="inner"></div>
+        </div>
+        <!-- 已播放进度条 -->
+        <div class="playedProgress"></div>
+      </div>
+      <div class="other">
+        <!-- 进度时间 -->
+        <div class="time">
+          <span class="current">00:00:00</span>
+          <span>/</span>
+          <span class="duration">00:00:00</span>
+        </div>
+        <!-- 声音 -->
+        <div class="sound">
+          <div class="switch">
+            <span></span>
+          </div>
+          <!-- 音量条 -->
+          <div class="progress">
+            <div class="wrap">
+              <div class="inner"></div>
+            </div>
+            <div class="playedProgress"></div>
+          </div>
+        </div>
+        <!-- 全屏 -->
+        <div class="full-screen">
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

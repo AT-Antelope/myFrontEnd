@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <hr />
+    -------新增表单格式-------
+    <hr />
+    <form action="/" method="post">
+
+        <!-- 自动检测email格式，非邮箱格式不能成功提交，移动端获焦时会切换到英文键盘 -->
+        <input type="email" placeholder="email" />
+        <!-- 自动检测手机格式，移动端会切换到数字键盘 -->
+        <input type="tel" placeholder="tel" />
+        <!-- 自动检测url格式 -->
+        <input type="url" placeholder="url" />
+        <!-- 搜索类型，自带清空文本的按钮 -->
+        <input type="search" name="name" value="" placeholder="search" />
+        <!-- 特定范围内的数值选择器，属性:min,max,step(每一步的占值，非分为几步) -->
+        <ruby>
+            <rt>0%</rt>
+            <input type="range" placeholder="range" min="10" max="20" step="2" />
+            <rt>50%</rt><rt>100%</rt>
+        </ruby>
+
+        <hr />
+        <!-- type:
+            number          只包含数字的输入框
+            color           颜色选择器
+            datetime        完整日期(移动浏览器支持)
+            datetime-local  完整日期，不含时区
+            time            显示时间，不含时区
+            date            显示日期
+            week            显示周
+            month           显示月
+             -->
+        <input type="color" />
+        <br />
+        <input type="submit" name="name" value="submit" />
+    </form>
+
+    <hr />
+    -------新增表单属性-------
+    <hr />
+
+    <!-- 
+        placeholder     输入框提示信息，适用于form，以及type为text,search,url,tel,email,password类型的input
+        autofocus       指定表单获取输入焦点
+        required        此项必填，不能为空
+        pattern         正则验证    pattern="\d{1,5}"   1到5个数字
+        formaction      在submit里定义提交地址
+        list,datalist   为输入框构造一个选择列表，list值为datalist标签的id
+         -->
+    <input type="text" autofocus/>
+
+</body>
+</html>

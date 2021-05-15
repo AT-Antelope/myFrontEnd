@@ -1,0 +1,159 @@
+@import url('../scripts/nomal_css/reset.css');
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+#wrap {
+  height: 100%;
+  overflow: hidden;
+  background: #383838;
+  font-size: 0;
+}
+#wrap .control {
+  position: relative;
+  height: 25px;
+  background: #2a2a2a;
+  width: auto;
+}
+#wrap .control .btns {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 55px;
+  height: 25px;
+  text-align: center;
+}
+#wrap .control .btns > span {
+  display: inline-block;
+  cursor: pointer;
+  width: 15px;
+  height: 14px;
+  background: url(../pic/ico/controlStrip.png) no-repeat;
+  margin: 4px 7px 0 0;
+}
+#wrap .control .btns > span:nth-child(1) {
+  background-position: 0px -26px;
+}
+#wrap .control .btns > span:nth-child(1).active {
+  background-position: 0px -13px;
+}
+#wrap .control .btns > span:nth-child(2) {
+  background-position: 0px 0px;
+}
+#wrap .control > .progress {
+  height: 25px;
+  margin: 0 230px 0 55px;
+  min-width: 600px;
+  position: relative;
+}
+#wrap .control > .progress > .wrap {
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background: #737373;
+  margin-top: 11px;
+}
+#wrap .control > .progress > .wrap .inner {
+  position: absolute;
+  width: 9px;
+  height: 7px;
+  background: white;
+  border-radius: 2px;
+  /*2px圆角*/
+  margin-top: -1px;
+  cursor: default !important;
+}
+#wrap .control > .progress > .playedProgress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  background: orange;
+  height: 3px;
+  margin-top: 11px;
+}
+#wrap .control .other {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 230px;
+  height: 25px;
+}
+#wrap .control .other div {
+  height: 25px;
+  float: left;
+}
+#wrap .control .other .time {
+  width: 120px;
+  text-align: center;
+}
+#wrap .control .other .time > span {
+  font-size: 12px;
+  color: white;
+  line-height: 25px;
+  cursor: text;
+}
+#wrap .control .other .sound {
+  width: 80px;
+  height: 25px;
+}
+#wrap .control .other .sound .switch {
+  width: 20px;
+  height: 25px;
+  text-align: center;
+}
+#wrap .control .other .sound .switch > span {
+  display: inline-block;
+  cursor: pointer;
+  margin: 6px auto;
+  width: 13px;
+  height: 12px;
+  background: url(../pic/ico/controlStrip.png) no-repeat;
+  background-position: 0px -40px;
+}
+#wrap .control .other .sound .progress {
+  width: 60px;
+  height: 25px;
+  position: relative;
+}
+#wrap .control .other .sound .progress > .wrap {
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background: #737373;
+  margin-top: 11px;
+}
+#wrap .control .other .sound .progress > .wrap .inner {
+  position: absolute;
+  width: 9px;
+  height: 7px;
+  background: white;
+  border-radius: 2px;
+  /*2px圆角*/
+  margin-top: -1px;
+  cursor: default !important;
+}
+#wrap .control .other .sound .progress > .playedProgress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  background: orange;
+  height: 3px;
+  margin-top: 11px;
+}
+#wrap .control .other .full-screen {
+  width: 30px;
+  height: 25px;
+  text-align: center;
+}
+#wrap .control .other .full-screen > span {
+  display: inline-block;
+  cursor: pointer;
+  margin: 6px auto;
+  width: 15px;
+  height: 12px;
+  background: url(../pic/ico/controlStrip.png) no-repeat;
+  background-position: 0px -67px;
+}

@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #test {
+            background: burlywood; /*画布默认继承body背景色*/
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            /*width:300px;*/   
+            /*height:300px;*/   /*css里设置会改变放大倍率，html标签里设置就不会*/
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var testNode = document.querySelector('#test'); //querySelector有坑，相当于保存当时的快照
+            if (testNode.getContext) {  //getContext()是用来获得渲染上下文和他的绘画功能，只有一个参数:上下文格式
+                var ctx = testNode.getContext('2d');
+
+                //canvas只需要管理自己的绘制，性能极高，各项参数设定必须在绘制前设定，不像css绘制慢(同步思想)
+                ctx.fillStyle = 'aqua';
+                ctx.strokeStyle = 'aquamarine';
+                ctx.lineWidth = 30;  //不加单位
+                ctx.lineJoin = 'bevel'; //round圆角，bevel斜角，miter直角
+
+                //注意不加单位
+                //填充的矩形，参照于画布的原点
+                ctx.fillRect(0, 0, 100, 100);   //fiilRect(x,y,width,height)
+                //带边框的矩形
+                //ctx.strokeRect(100.5, 100.5, 100, 100); //边框是两边各0.5px，而css默认向上取整，x和y不多取1px会导致变成2px宽的边框
+                ctx.strokeRect(100, 100, 100, 100);
+                //透明色(底色)矩形
+                ctx.clearRect(100, 100, 100, 100);  //按先后顺序一层层叠上去的，覆盖在strokeRect上也可实现1px边框,并不是擦除,且性能消耗特别低
+
+            }
+        };//onload
+    </script>
+</head>
+<body>
+    <canvas id="test" width="300" height="300">
+        <span>您的浏览器不支持画布元素，请您换成萌萌的谷歌</span> <!-- IE8及以下不支持canvas，可作为替代内容 -->
+    </canvas>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- JTopo使用心得:https://www.cnblogs.com/Liu30/p/7158984.html
+        或见  00.JTopo使用教程.md -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #canvas {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: gray;
+    }
+  </style>
+  <script src="../../scripts/JTopo/jtopo-0.4.8-min.js"></script>
+  <script>
+    window.onload = function () {
+      //Hello world
+      var canvas = document.getElementById('canvas')
+      var stage = new JTopo.Stage(canvas)
+      var scene = new JTopo.Scene(stage)
+
+      var node = new JTopo.Node('first')
+      node.setLocation(200, 200)
+      scene.add(node)
+
+      //节点设置
+      var node2 = new JTopo.Node('second')
+      node2.setLocation(300, 300)
+      node2.rotate = 45   //Math.random()
+      node2.scaleX = 1
+      node2.scaleY = 1
+      node2.alpha = .7   //透明度
+      node2.setImage('../../pic/ico_default/aoman.gif')
+      scene.add(node2)
+
+      //连线
+      /*
+        Arrow     --- 箭头
+        Link      --- 直线(able)
+        FoldLink      --- 直角(able)
+        FlexionalLink  --- Z字形(able)
+        loop      --- 圈
+        f
+        CurveLink --- 曲线(able)
+      */
+      // var nodeFrom = new JTopo.node('from')
+      // nodeFrom.setLocation(200, 200) 
+      // scene.add(nodeFrom)
+
+      // var nodeTo = new JTopo.node('to')
+      // nodeTo.setLocation(300, 300)
+      // scene.add(nodeTo)
+
+      // var link = new JTopo.Link(node, node2)
+      var arrow = new JTopo.CurveLink(node, node2)
+
+      scene.add(arrow)
+    }
+  </script>
+</head>
+
+<body>
+  <canvas id="canvas" width="500px" height="500px">
+  </canvas>
+</body>
+
+</html>

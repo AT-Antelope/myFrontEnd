@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../scripts\Vue\vue.js"></script>
+    <script>
+        window.onload = function () {
+            new Vue({
+                el: '#dv',
+                data: {
+                    persons: [
+                        { name: 'AT', age: 13 },
+                        { name: 'ATM', age: 15 },
+                        { name: 'ATLP', age: 17 },
+                        { name: 'Antil', age: 19 }
+                    ]
+                },
+                methods: {
+                    deleteP(index) {
+                        this.persons.splice(index, 1);
+                    },
+                    update(index, newP) {
+                        //vue本身只是监视了persons的改变，没有监视数组内部数据的改变
+                        //并没有改变persons本身，数组内部发生了变化，但并没有调用变异方法，vue不会更新界面
+                        // this.persons[index] = newP;
+
+                        //splice方法会被vue重写，加入界面更新
+                        this.persons.splice(index, 1, newP);
+                    }
+                }
+            });//Vue
+        };//onload
+    </script>
+</head>
+
+<body>
+    <div id="dv">
+        <h2>test: v-for遍历数组</h2>
+        <ul>
+            <!-- key不加冒号就是一个文本(p,index) ==> p:自身对象，index:索引 -->
+            <li v-for="(p,index) in persons" :key="index">
+                {{index}}-------{{p.name}}-------{{p.age}}
+                -------<button @click="deleteP(index)">delete</button>
+                -------<button @click="update(index,{name:'hey there',age:21})">update</button>
+            </li>
+        </ul>
+
+        <hr>
+
+        <h2>test: v-for遍历对象</h2>
+        <ul>
+            <li v-for="(value,key) in persons[1]" :key="key">
+                {{key}}-------{{value}}
+            </li>
+        </ul>
+
+    </div>
+</body>
+
+</html>

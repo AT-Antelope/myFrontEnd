@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        /* 隐藏背面，将3D透明时，设置能否看到盒模型中其他面:backface-visibility */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrap {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 300px;
+            height: 300px;
+            border: 1px solid;
+            /* 3D */
+            perspective: 200px;
+        }
+
+        #wrap>.box {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 100px;
+            height: 100px;
+            /* 3D */
+            transition: 2s;
+            transform-style: preserve-3d;
+            /*层级，不可继承属性，且只作用于子元素*/
+            /* 调整基准点，默认在 "前"那个面的中心x轴 */
+            transform-origin: center center -50px;
+            /*调整盒子的基点*/
+        }
+
+        #wrap>.box>div {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: aqua;
+            text-align: center;
+            font: 50px/100px "微软雅黑";
+            transform-origin: center center -50px;
+            /*调整图片的基点*/
+        }
+
+        /* 采用设置基点z轴后推，放在元素后的方式 */
+
+        #wrap>.box>div:nth-child(5) {
+            transform: rotateX(90deg);
+        }
+
+        #wrap>.box>div:nth-child(6) {
+            transform: rotateX(-90deg);
+        }
+
+        #wrap>.box>div:nth-child(3) {
+            transform: rotateY(270deg);
+        }
+
+        #wrap>.box>div:nth-child(4) {
+            transform: rotateY(90deg);
+        }
+
+        #wrap>.box>div:nth-child(2) {
+            transform: rotateY(180deg) rotate(180deg);
+        }
+
+        /* #wrap > .box > div:nth-child(1) {
+
+                    } */
+
+        #wrap:hover .box {
+            transform: rotateX(360deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <div class="box">
+            <div>前</div>
+            <div>后</div>
+            <div>左</div>
+            <div>右</div>
+            <div>上</div>
+            <div>下</div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #dv {
+            width: 400px;
+            height: 300px;
+            border: 1px solid;
+            margin: 0 auto;
+            background-image: radial-gradient(gray,aqua);
+            /*
+               改变形状的大小
+               circle   外部盒模型不为正方形时强制改为圆形
+               closest-side
+               farthest-side
+               closest-corner
+               farthest-corner
+
+               改变圆心
+               background-image:radial-gradient(closest-side circle at 10px 10px,red,blue);
+            */
+        }
+    </style>
+</head>
+<body>
+    <div id="dv"></div>
+</body>
+</html>

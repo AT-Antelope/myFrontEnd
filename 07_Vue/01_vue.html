@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="../scripts/Vue/vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            //Vue是一个vue.js库提供的构造函数
+            const vm = new Vue({    //配置对象(属性名必须是指定的一些名称)
+                el: '#dv',          //element:选择器字符串
+                data: {
+                    txtInput: 'AT',
+                    msg: '<a href="http://www.baidu.com">baidu</a>',
+                    imgSrc: 'https://vuejs.org/images/logo.png'
+                },
+                methods: {
+                    test() {
+                        alert('hey there!');
+                    },
+                    test2(content) {
+                        alert(content);
+                    }
+                }
+            })
+        };//onload
+    </script>
+</head>
+
+<body>
+    <div id="dv">
+        <!-- 双大括号表达式 -->
+        <input type="text" v-model="txtInput" />
+        <p>hello,{{txtInput}}</p>
+
+        <p v-text='msg'></p>
+        <p v-html='msg'></p>
+
+        <hr>
+
+        <!-- 强制数据绑定，用: -->
+        <img v-bind:src="imgSrc" alt="" style="width:100px;height:100px;background-size:100% 100%;">
+        <img :src="imgSrc" alt="" style="width:100px;height:100px;background-size:100% 100%;">
+
+        <hr>
+
+        <!-- 绑定事件监听，用@ -->
+        <button v-on:click="test">button</button>
+        <button @click="test2(txtInput)">button</button>    <!-- txtInput是自定义的vue_data -->
+    </div>
+    <div id="dv2">
+    </div>
+</body>
+
+</html>

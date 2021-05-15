@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+    <script type="text/javascript">
+        window.onload = function () {
+            var audio = document.querySelector('audio');
+            var video = document.querySelector('video');
+
+            //网页加载完后，音频和视频的界面不一定加载完了，一般等待500ms比较保险,或使用setTimeout()，否则拿到的可能是undefined值，即NaN
+            video.addEventListener('loadeddata', function () {
+                console.log(video.duration);    //dutation(只读)  持续时间，时长
+            });
+
+            //坑:    !important
+            //muted和volume之间不会同步，必须同时手动设置两个,浏览器不会代做这一步
+            //muted的优先级比较高，无论放在前后都先考虑muted属性
+            audio.muted = true;
+            video.muted = true;
+            audio.volume = 0;
+            video.volume = 0;
+            console.log(audio.muted);
+            console.log(video.muted);
+            console.log(audio.volume);
+            console.log(video.volume);
+
+            //以下都为只读属性
+            //paused:   是否暂停
+            //ended:    是否播放完毕
+            //error:    发生错误时返回错误代码
+            //currentSrc:   以字符串的形式返回媒体地址 
+
+            //console.log(video.poster);  //返回封面海报的url(读写)
+
+            //width,height  控件的当前尺寸(读写)
+            //videoWidth,videoHeight    视屏的实际尺寸(只读)
+            
+            //音视频相关函数:
+            //play()
+            //pause()
+            //load()    重新加载媒体,js里改了src后需要load()一次才能加载出来新的，因为当前是前一次已经加载完了的媒体
+
+            //事件
+            //loadeddata    video加载好第一帧后
+
+        };//onload
+    </script>
+</head>
+<body>
+    <!-- video的属性:
+        poster:封面海报
+        autoplay:自动播放，没有参数
+        loop:循环播放，没有参数
+        muted:静音，没有参数
+        preload:该属性在告诉浏览器作者认为达到最佳用户体验的方式是什么
+            none:   用户不需要查看该视频，服务器也想要最小化访问流量，提示浏览器不需要缓存改视频
+            metadata(default):  尽管作者认为用户不需要查看该视频，不过抓取元数据还是很重要的，比如:长度，字幕，海报
+            auto:   用户需要这个视频有限加载，需要的话可以下载整个视频，即使用户可能并不一定会用到它
+            空字符串:   代指auto值
+         -->
+    <video controls="controls" poster="../pic/pic/Flag.jpg" autoplay loop>
+        <source src="../audio_video/video/猫又おかゆ - 乙女解剖.mp4" type="video/mp4" />
+        <source src="../audio_video/video/猫又おかゆ - 乙女解剖.webm" type="video/webm" />
+        <source src="../audio_video/video/猫又おかゆ - 乙女解剖.ogv" type="video/ogg" />
+        当前浏览器不支持video直接播放，点击这里下载视频:<a href="../audio_video/video/猫又おかゆ - 乙女解剖.mp4">下载视频</a>
+    </video>
+
+    <!-- audio对width和height的设置无效 -->
+    <audio controls="controls">
+        <source src="../audio_video/湊あくあ - それがあなたの幸せとしても.mp3" type="audio/mp3" />
+        <source src="../audio_video/湊あくあ - それがあなたの幸せとしても.ogg" type="audio/ogg" />
+    </audio>
+</body>
+</html>

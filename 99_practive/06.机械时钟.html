@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script type="text/javascript">
+        window.onload = function () {
+            var ulNode = document.querySelector('#wrap > ul');
+            var liHtml = '';
+
+            var styleNode = document.createElement('style');    //一般工作环境css由alink来导入，所以要自己创建一个新的style标签
+            var cssText = '';
+
+            var hourNode = document.querySelector('#wrap > .hour');
+            var minNode = document.querySelector('#wrap > .min');
+            var secNode = document.querySelector('#wrap > .sec');
+
+            //加载刻度
+            for (var i = 0; i < 60; i++) {
+                liHtml += '<li></li>';
+                cssText += 'ul > li:nth-child(' + (i + 1) + '){transform:rotate(' + (i * 6) + 'deg);}'; //对style(css)标签进行添加样式操作
+            }
+            ulNode.innerHTML = liHtml;
+            styleNode.innerHTML = cssText;
+
+            document.head.appendChild(styleNode);   //将styleNode加入head里
+
+            move();
+            setInterval(move, 1000);
+            function move() {
+                var date = new Date();
+                var s = date.getSeconds();
+                var min = date.getMinutes()+s/60;   //按s、m、h的顺序定义，加上s/60后实现定量前移的真实感
+                var h = date.getHours()+min/60;
+
+                hourNode.style.transform = 'rotate(' + (h * 30) + 'deg)';   //小时为30度一个钟
+                minNode.style.transform = 'rotate(' + (min * 6) + 'deg)';
+                secNode.style.transform = 'rotate(' + (s * 6) + 'deg)';
+            }
+        };    //onload
+    </script>
+    <style type="text/css" id="css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none; /*取消前置点显示*/
+        }
+
+        #wrap {
+            /*垂直水平居中*/ /*定位属性一般比较重要，放在上面*/
+            position: absolute; /*从文档流元素转为定位元素*/
+            left: 50%;
+            top: 50%;
+            /*transform:translate(-50%,-50%);*/
+            margin-left: -100px;
+            margin-top: -100px;
+            /*元素外形塑造*/
+            width: 200px;
+            height: 200px;
+            border: 1px solid;
+            border-radius: 50%;
+        }
+
+        ul > li {
+            position: absolute;
+            left: 99px; /* (200-2px)/2=99px */
+            top: 0;
+            /**/
+            width: 2px;
+            height: 6px;
+            background: black;
+            /*改变基点，实现rotate变换能按照中心点旋转*/
+            transform-origin: center 100px;
+        }
+
+            ul > li:nth-child(5n+1) { /*css可以直接实现按规律设置*/
+                height: 15px;   /* 实现刻度整5更长 */
+            }
+
+        #wrap > .hour {
+            position: absolute;
+            left: 97px; /*水平居中:(200-width)/2 = 100-width/2 */
+            top: 70px; /*实现底端顶点在基座icon上: 100-height */
+            width: 6px;
+            height: 30px;
+            background: black;
+            transform-origin: center bottom;
+        }
+
+        #wrap > .min {
+            position: absolute;
+            left: 98px;
+            top: 40px;
+            width: 4px;
+            height: 60px;
+            background: gray;
+            transform-origin: center bottom;
+        }
+
+        #wrap > .sec {
+            position: absolute;
+            left: 99px;
+            top: 20px;
+            width: 2px;
+            height: 80px;
+            background: red;
+            transform-origin: center bottom;
+        }
+
+        #wrap > .icon {
+            position: absolute;
+            left: 90px;
+            top: 90px;
+            width: 20px;
+            height: 20px;
+            background: aqua;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <ul></ul>
+        <div class="hour"></div>
+        <div class="min"></div>
+        <div class="sec"></div>
+        <div class="icon"></div>
+    </div>
+</body>
+</html>

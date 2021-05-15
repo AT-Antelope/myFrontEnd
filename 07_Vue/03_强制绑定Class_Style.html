@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        .aClass {
+            color: red;
+        }
+
+        .bClass {
+            color: aqua;
+        }
+
+        .commClass {
+            font-size: 30px;
+        }
+    </style>
+    <script src="../scripts/Vue/vue.js"></script>
+    <script>
+        window.onload = function () {
+            new Vue({
+                el: '#dv',
+                data: {
+                    //class绑定
+                    //字符串
+                    a: 'aClass',
+                    text: 'Hey there',
+                    //对象
+                    isA: true,
+                    isB: false,
+                    //数组
+                    myArray: ['aClass'],
+
+                    //style绑定
+                    activeColor: 'red',
+                    fontSize: 30
+                },
+                methods: {
+                    update() {
+                        //绑定字符串
+                        this.a = 'bClass';
+                        this.text = 'I\'m back';
+                        //绑定对象
+                        this.isA = false;
+                        this.isB = true;
+                        //绑定数组
+                        this.myArray = ['bClass', 'commClass'];
+
+                        //style绑定
+                        this.activeColor = 'aqua';
+                        this.fontSize = 20;
+                    }
+                }
+            });
+        };//onload
+    </script>
+</head>
+
+<body>
+    <div id="dv">
+        <!-- class绑定，字符串，对象，数组 -->
+        <h2>1.class绑定 :class="xxx"</h2>
+        <p class="commClass" :class="a">xxx是字符串,{{text}}</p>
+        <p :class="{aClass:isA,bClass:isB}">xxx是对象,{{text}}</p>
+        <p :class="['aClass','commClass']">xxx是数组,{{text}}</p>
+        <p :class="myArray">xxx是数组,{{text}}</p>
+
+        <hr>
+
+        <h2>2.style绑定</h2>
+        <p :style="{color:activeColor,fontSize:fontSize+'px'}">:style="{color:activeColor,fontSize:fontSize+'px'}"</p>
+
+        <button @click="update">update</button>
+    </div>
+
+</body>
+
+</html>

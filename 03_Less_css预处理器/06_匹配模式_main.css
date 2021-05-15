@@ -1,0 +1,8 @@
+/* 三角形方向箭头 */
+#wrap {
+  width: 0px;
+  height: 0px;
+  border-width: 100px;
+  border-style: dashed dashed solid dashed;
+  border-color: transparent transparent #00ffff transparent;
+}

@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+    <style type="text/css">
+        div{
+            /*必须满足以下4个条件，且必须设定宽度，否则盒子被迫由内容撑大*/
+            display:block;
+            white-space:nowrap; /*以下三个绑在一起的*/
+            overflow:hidden;
+            text-overflow:ellipsis; /*阻止换行时溢出*/
+        }
+    </style>
+</head>
+<body>
+    <div style="width:200px;height:200px;border:1px solid aqua;">
+        ASDJKLASDJKLASJDKLASJDLKJSALKDSAJDLKJSALKDJLKSAJDLKJSALKDJLKASJDLKSAD
+    </div>
+</body>
+</html>

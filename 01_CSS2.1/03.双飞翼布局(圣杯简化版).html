@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #header, #footer {
+            border: 1px solid;
+            background: gray;
+            text-align: center;
+        }
+
+        /*三列伪等高布局*/
+        #content .middle, #content .left, #content .right {
+            padding-bottom: 10000px;
+            margin-bottom: -10000px;
+            height: 50px;
+            float: left;
+            line-height: 50px; /*设置行高，实现文字居中显示*/
+        }
+
+        /*双飞翼布局*/
+        #content {
+            overflow: hidden;
+            /*padding: 0 200px;*/
+        }
+
+            #content .middle {
+                width: 100%;
+                background: deeppink;
+            }
+
+            #content .left, #content .right {
+                background: pink;
+                width: 200px;
+                text-align: center;
+                /*position: relative;*/
+            }
+
+            #content .left {
+                margin-left: -100%;
+                /*left: -200px;*/
+            }
+
+            #content .right {
+                margin-left: -200px;
+                /*right: -200px;*/
+            }
+
+            /*通过在middle中多加一层，再添加padding来快速实现middle层的置中，免去处理左右两列位置的步骤*/
+            #content .middle .m_inner { /*双飞翼核心*/
+                padding:0 200px;
+            }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h4>Header</h4>
+    </div>
+    <div id="content">
+        <div class="middle">
+            <div class="m_inner">middle</div>
+        </div>
+        <div class="left">left</div>
+        <div class="right">right</div>
+    </div>
+    <div id="footer">
+        <h4>Footer</h4>
+    </div>
+
+</body>
+</html>

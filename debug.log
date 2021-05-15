@@ -1,0 +1,7 @@
+[0115/100621.080:ERROR:directory_reader_win.cc(43)] FindFirstFile: ÏµÍ³ÕÒ²»µ½Ö¸¶¨µÄÂ·¾¶¡£ (0x3)
+[0121/123422.325:ERROR:directory_reader_win.cc(43)] FindFirstFile: ç³»ç»Ÿæ‰¾ä¸åˆ°æŒ‡å®šçš„è·¯å¾„ã€‚ (0x3)
+[0220/094658.728:ERROR:directory_reader_win.cc(43)] FindFirstFile: ç³»ç»Ÿæ‰¾ä¸åˆ°æŒ‡å®šçš„è·¯å¾„ã€‚ (0x3)
+[0301/164943.732:ERROR:directory_reader_win.cc(43)] FindFirstFile: ÏµÍ³ÕÒ²»µ½Ö¸¶¨µÄÂ·¾¶¡£ (0x3)
+[0302/202220.706:ERROR:directory_reader_win.cc(43)] FindFirstFile: ÏµÍ³ÕÒ²»µ½Ö¸¶¨µÄÂ·¾¶¡£ (0x3)
+[0303/165744.583:ERROR:settings.cc(325)] Settings version is not 1
+[0310/214006.764:ERROR:directory_reader_win.cc(43)] FindFirstFile: ÏµÍ³ÕÒ²»µ½Ö¸¶¨µÄÂ·¾¶¡£ (0x3)

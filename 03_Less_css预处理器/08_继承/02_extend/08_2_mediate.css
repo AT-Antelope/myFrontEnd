@@ -1,0 +1,12 @@
+.mediate {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+.mediate:hover {
+  background-color: burlywood!important;
+  /* 坑:如果不使用!important，编译出来的css里会出现在nth-child前，优先度更低 */
+}

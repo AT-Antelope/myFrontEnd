@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../scripts\Vue\vue.js"></script>
+    <!-- https://www.bootcdn.cn/ -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/moment.js/1.0.0/moment.js"></script>
+    <script>
+        window.onload = function () {
+            //ES6也能实现
+            // Vue.filter('dateString', function (value, format='YYYY-MM-DD HH:mm:ss'){ })
+            Vue.filter('dateString', function (value, format) {
+                return moment().format(format || 'YYYY-MM-DD HH:mm:ss');
+            })
+
+            new Vue({
+                el: '#dv',
+                data: {
+                    time: new Date()
+                },
+            })
+        };//onlaod
+    </script>
+</head>
+
+<body>
+    <div id="dv">
+        <h2>显示格式化的日期时间</h2>
+        <p>{{time}}</p>
+        <p>最完整的:{{time|dateString}}</p>
+        <p>年月日:{{time|dateString('YY-MM-DD')}}</p>
+        <p>时分秒:{{time|dateString('HH:mm:ss')}}</p>
+
+    </div>
+</body>
+
+</html>

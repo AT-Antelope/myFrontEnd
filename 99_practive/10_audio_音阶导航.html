@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* #wrap {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+        } */
+
+        .nav {
+            list-style: none;
+            width: 807px; /*原808px，因.down移到ul内时右侧有空隙，所以-1*/
+            height: 38px;
+            background: aqua;
+            margin: 0 auto;
+            border: 1px solid;
+            margin: 200px auto;
+            overflow: hidden;
+        }
+
+            .nav > li {
+                float: left;
+                width: 100px;
+                height: 100%;
+                line-height: 38px;
+                text-align: center;
+            }
+
+                .nav > li:not(:last-child) {
+                    border-right: 1px solid;
+                }
+
+                .nav > li:hover .down {
+                    transform: translate(0,-39px); /*包括底border 1px*/
+                }
+
+                .nav > li > a {
+                    text-decoration: none;
+                    display: block; /*点击整个空间都能触发a标签*/
+                    color: black;
+                }
+
+                .nav > li > div.down {
+                    width: 100px;
+                    /*height: 38px;*/
+                    height: 100%;
+                    background: red;
+                    transition: 1s;
+                    margin: 1px 0 0 0; /*test*/
+                    transition: .5s;
+                }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            //http://s8.qhimg.com/share/audio/piano1/a4.mp3
+            var audio = document.querySelector('#wrap > audio');
+            var liNodes = document.querySelectorAll('.nav > li');
+            // var urlConnect = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
+
+            for (var i = 0; i < liNodes.length; i++) {
+                liNodes[i].addEventListener('mouseenter', function () {
+                    var flag = this.getAttribute('data-flag');
+                    //var flag = this.dataset.flag == undefined ? this.dataset.flag : this.getAttribute('data-flag'); //没必要
+                    if (flag) {
+                        audio.src = 'http://s8.qhimg.com/share/audio/piano1/' + flag + '.mp3';
+                        //audio.load(); //音频改变src后不需要重新加载
+                        audio.play();
+                    }
+
+                });
+            }
+
+        };//onload
+    </script>
+</head>
+<body>
+    <div id="wrap">
+        <audio></audio>
+        <ul class="nav">
+            <li data-flag="c4">
+                <a href="javascript:;">我的主页</a>
+                <div class="down"></div>
+            </li>
+            <li data-flag="d4">
+                <a href="javascript:;">新闻头条</a>
+                <div class="down"></div>
+            </li>
+            <li data-flag="e4">
+                <a href="javascript:;">电视剧</a>
+                <div class="down"></div>
+            </li>
+            <li data-flag="f4">
+                <a href="javascript:;">腿长1米8</a>
+                <div class="down"></div>
+            </li>
+            <li data-flag="g4">
+                <a href="javascript:;">小说大全</a>
+                <div class="down"></div>
+            </li>
+            <li data-flag="a4">
+                <a href="javascript:;">旅游暑假</a>
+                <div class="down"></div>
+            </li>
+            <li data-flag="b4">
+                <a href="javascript:;">次品退购</a>
+                <div class="down"></div>
+            </li>
+            <li data-flag="c5">
+                <a href="javascript:;">今日团购</a>
+                <div class="down"></div>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

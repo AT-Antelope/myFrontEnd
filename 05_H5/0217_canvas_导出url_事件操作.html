@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body,
+        html {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #test {
+            background: aqua;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var canvas = document.querySelector('#test');
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d');
+
+                ctx.fillRect(0, 0, 100, 100);
+
+                //toDataURL()，导出canvas为url，注意是canvas元素接口上的方法
+                var result = canvas.toDataURL();
+                console.log(result);
+
+
+
+                ctx.beginPath();    //isPointInPath()就只能判断到beginPath()后的路径
+                ctx.arc(150, 150, 50, 0, 360 * Math.PI / 180);
+                ctx.fill();
+
+                canvas.onclick = function (e) {
+                    e = e || event;
+                    var x = e.clientX - canvas.offsetLeft;
+                    var y = e.clientY - canvas.offsetTop;
+
+                    debugger
+                    //isPointInPath(x,y),判断当前点是否在路径上,只能检测到beginPath()后的路径
+                    //自发现坑: 不能采用left:50%; top:50%; transform:translate3d(-50%,-50%,0); 的居中方法，不然元素本身实际是处于左上角的，只是视觉上转换到了屏幕中间
+                    if (ctx.isPointInPath(x, y)) {
+                        alert('Hey there!');
+                        console.log('Hey there!');
+                    }
+                };
+
+            }
+        };//onload
+    </script>
+</head>
+
+<body>
+    <canvas id="test" width="300" height="300"></canvas>
+</body>
+
+</html>

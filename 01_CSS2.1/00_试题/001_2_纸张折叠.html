@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* 题中链接已失效，大致应该是这样的 */
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .outter,
+    .paper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .outter {
+      width: 120px;
+      height: 70px;
+      background: gray;
+    }
+
+    .paper {
+      width: 100px;
+      height: 50px;
+      background: gray;
+    }
+
+    .inner {
+      position: absolute;
+      width: 80px;
+      height: 50px;
+      position: absolute;
+      background: white;
+      top: 0;
+      left: 0;
+      border-radius: 0 5px 0 0;
+    }
+
+    .inner2 {
+      position: absolute;
+      width: 100px;
+      height: 30px;
+      background: white;
+      bottom: 0;
+      right: 0;
+      border-radius: 0 5px 0 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="outter">
+    <div class="paper">
+      <div class="inner"></div>
+      <div class="inner2"></div>
+    </div>
+  </div>
+</body>
+
+</html>

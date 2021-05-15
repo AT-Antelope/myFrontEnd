@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #mosaic {
+            /*background: aqua;*/
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate3d(-50%,-50%,0);
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var canvas = document.querySelector('#mosaic');
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d');
+
+                var img = new Image();
+                img.src = '../pic/pic/Aqua_light.png';
+                img.onload = function () {
+                    canvas.width = img.width * 2;
+                    canvas.height = img.height;
+                    draw();
+
+                }//img.onload
+
+            }
+
+            function draw() {
+                ctx.drawImage(img, 0, 0);
+
+                var oldImageData = ctx.getImageData(0, 0, img.width, img.height);   //获取原图数据
+                var newImageData = ctx.createImageData(img.width, img.height);      //创建新图数据
+
+                ////测试新区域
+                //for (var i = 0; i < newImageData.data.length; i++) {
+                //    newImageData.data[4 * i + 3] = 255;
+                //}
+
+                var size = 5;   //马赛克矩形的尺寸
+                //1.选取一个马赛克矩形
+                for (var i = 0; i < oldImageData.width / size; i++) {
+                    for (var j = 0; j < oldImageData.height / size; j++) {
+                        //(i,j)每个马赛克矩形的坐标
+
+                        //Math.random() [0,1)
+                        //Math.random()*size    [0,5)
+                        //Math.floor(Math.random()*size)    [0,4]   一个马赛克矩形，加上i/j * size后就能得到每个马赛克矩形的color
+                        //2.从马赛克矩形中随机抽取出一个像素点的信息(rgba)
+                        var color = getPxInfo(oldImageData, Math.floor(Math.random() * size) + i * size, Math.floor(Math.random() * size) + j * size);
+
+                        //3.将整个马赛克矩形中的像素点信息统一调成抽出的那个,并写入新区域对象中
+                        for (var a = 0; a < size; a++) {
+                            for (var b = 0; b < size; b++) {
+                                setPxInfo(newImageData, a + i * size, b + j * size, color);
+                            }
+                        }
+
+                    }
+                }
+
+                //每次加载清理之前的图
+                //ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                //绘制马赛克
+                //放置在第一张图后，即下一张图的头部开始区域
+                ctx.putImageData(newImageData, img.width, 0);   //x设置为0即可叠掉原图
+
+            };
+
+            function getPxInfo(imgData, x, y) {
+                var colorArray = [];
+                var data = imgData.data;
+                var w = imgData.width;
+                //var h = imgData.height;
+
+                colorArray[0] = data[(y * w + x) * 4];       //r
+                colorArray[1] = data[(y * w + x) * 4 + 1];   //g
+                colorArray[2] = data[(y * w + x) * 4 + 2];   //b
+                colorArray[3] = data[(y * w + x) * 4 + 3];   //a
+                return colorArray;  //需要获取所以返回想知道的结果
+            };
+
+            function setPxInfo(imgData, x, y, colorArray) {
+                var data = imgData.data;
+                var w = imgData.width;
+                //var h = imgData.height;
+
+                data[(y * w + x) * 4] = colorArray[0];      //r
+                data[(y * w + x) * 4 + 1] = colorArray[1];  //g
+                data[(y * w + x) * 4 + 2] = colorArray[2];  //b
+                data[(y * w + x) * 4 + 3] = colorArray[3];  //a
+            };
+
+        };//onload
+    </script>
+</head>
+<body>
+    <canvas id="mosaic"></canvas>
+</body>
+</html>

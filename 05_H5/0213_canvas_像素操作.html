@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            background: burlywood;
+        }
+
+        #test {
+            background: white;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate3d(-50%,-50%,0);
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var canvas = document.querySelector('#test');
+            ////视口的宽高   !important
+            //canvas.width = document.documentElement.clientWidth;
+            //canvas.height = document.documentElement.clientHeight;
+
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d');
+
+                ////改变透明度
+                ////方法一，直接改用rgba
+                //ctx.fillStyle = 'rgb(0, 255, 255,.3)';
+                //ctx.fillRect(0, 0, 100, 100);
+
+                //方法二，获取imageData后改写，相比更动态
+                //imageData储存的是由每个像素的width，height，data(rgba)数组，本应拿到100*100=10000个数据，却拿到了40000个，是因为拿到了每个像素点的rgba四个参数
+                var imageData = ctx.getImageData(0, 0, 100, 100);
+                //imageData = ctx.createImageData(0, 0, 100, 100);
+                for (var i = 0; i < imageData.data.length; i++) {
+                    imageData.data[i * 4 + 3] = 100;    //canvas中的透明度是0~255，css中的是0~1
+                }
+                ctx.putImageData(imageData, 0, 0);
+            }
+        };//onload
+    </script>
+</head>
+<body>
+    <canvas id="test" width="300" height="300"></canvas>
+</body>
+</html>

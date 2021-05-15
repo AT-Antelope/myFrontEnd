@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../scripts\Vue\vue.js"></script>
+    <script>
+        window.onload = function () {
+            new Vue({
+                el: '#dv',
+                data: {
+                    click11() {
+                        alert('click11');
+                    },
+                    click12(msg) {
+                        alert(msg);
+                    },
+                    click13(event) {
+                        alert(event.target.innerHTML);
+                    },
+                    click14(msg, event) {
+                        alert(msg + '---' + event.target.innerHTML);
+                    },
+
+                    //2.事件修饰符
+                    click21() {
+                        alert('out');
+                    },
+                    click22() {
+                        // event.stopPropagation(); //vue内使用 @click.stop
+                        alert('inner');
+                    },
+                    click23() {
+                        // event.preventDefault();  //vue内使用 @click.prevent
+                        alert('baidu');
+                    },
+
+                    //3.按键修饰符
+                    click31() {     //单个event参数可以不加
+                        // if (event.keyCode === 13) {     //当enter键起来时
+                        //     alert(event.target.value + '---' + event.keyCode);  //按键码测试
+                        // }
+                        alert('clicked');
+                    }
+                },
+            })
+        };//onload
+    </script>
+</head>
+
+<body>
+    <div id="dv">
+        <h2>1.绑定监听</h2>
+        <!-- 不传参 -->
+        <button @click="click11">click11</button>
+        <!-- 传一个参 -->
+        <button @click="click12('Hey there!')">click12</button>
+        <!-- 不传参数，默认传一个event，或传一个 $event -->
+        <button @click="click13">click13</button>
+        <!-- 多个参数不能省略 $event -->
+        <button @click="click14('Hey there!',$event)">click14</button>
+
+        <hr>
+
+        <h2>2.事件修饰符</h2>
+        <div style="width: 200px;height: 200px;background: aqua;" @click="click21">
+            <!-- @click.stop    阻止事件冒泡事件，代替 event.stopPropagation() -->
+            <div style="width: 100px;height: 100px;background:red;" @click.stop=" click22"></div>
+        </div>
+
+        <!-- 使用 @click.prevent 阻止事件冒泡行为，代替 event.preventDefault() -->
+        <a href="http://www.baidu.com" @click.prevent="click23">baidu</a>
+
+        <hr>
+
+        <h2>3.按键修饰符</h2>
+        <input type="text" @keyup.13="click31"><br>
+        <input type="text" @keyup.enter="click31">
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #nav > .row {
+            display: flex;
+        }
+
+            #nav > .row > .item {
+                border: 1px solid;
+                display: block; /*变为块元素后，*/
+                flex: 1;
+                text-align: center;
+            }
+
+                #nav > .row > .item > a {
+                    text-decoration: none; /*清除下划线*/
+                    display: block; /*使a标签交互区域填满容器*/
+                    color:black;
+                }
+
+                    #nav > .row > .item > a:before {
+                        content: '';
+                        display: block;
+                        width: 55px;
+                        height: 55px;
+                        margin: 0 auto; /*块级元素的居中*/
+                    }
+
+            #nav > .row:nth-child(1) > .item:nth-child(1) > a:before {
+                background: url(../pic/ico_default/aini.gif) no-repeat;
+            }
+
+            #nav > .row:nth-child(1) > .item:nth-child(2) > a:before {
+                background: url(../pic/ico_default/aixin.gif) no-repeat;
+            }
+
+            #nav > .row:nth-child(1) > .item:nth-child(3) > a:before {
+                background: url(../pic/ico_default/aoman.gif) no-repeat;
+            }
+
+            #nav > .row:nth-child(1) > .item:nth-child(4) > a:before {
+                background: url(../pic/ico_default/baiyan.gif) no-repeat;
+            }
+
+            #nav > .row:nth-child(1) > .item:nth-child(5) > a:before {
+                background: url(../pic/ico_default/bangbangtang.gif) no-repeat;
+            }
+
+            #nav > .row:nth-child(2) > .item:nth-child(1) > a:before {
+                background: url(../pic/ico_default/baojin.gif) no-repeat;
+            }
+
+            #nav > .row:nth-child(2) > .item:nth-child(2) > a:before {
+                background: url(../pic/ico_default/baoquan.gif) no-repeat;
+            }
+
+            #nav > .row:nth-child(2) > .item:nth-child(3) > a:before {
+                background: url(../pic/ico_default/bishi.gif) no-repeat;
+            }
+
+            #nav > .row:nth-child(2) > .item:nth-child(4) > a:before {
+                background: url(../pic/ico_default/bizui.gif) no-repeat;
+            }
+
+            #nav > .row:nth-child(2) > .item:nth-child(5) > a:before {
+                background: url(../pic/ico_default/cahan.gif) no-repeat;
+            }
+    </style>
+</head>
+<body>
+    <!-- 考虑到需要支持低内核老版本不支持flex换行，每行分别使用一个div -->
+    <div id="nav">
+        <div class="row">
+            <div class="item">
+                <a href="javascript:;">天猫</a>
+            </div>
+            <div class="item">
+                <a href="javascript:;">聚划算</a>
+            </div>
+            <div class="item">
+                <a href="javascript:;">天猫国际</a>
+            </div>
+            <div class="item">
+                <a href="javascript:;">外卖</a>
+            </div>
+            <div class="item">
+                <a href="javascript:;">天猫超市</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="item">
+                <a href="javascript:;">充值中心</a>
+            </div>
+            <div class="item">
+                <a href="javascript:;">旅行</a>
+            </div>
+            <div class="item">
+                <a href="javascript:;">领金币</a>
+            </div>
+            <div class="item">
+                <a href="javascript:;">拍卖</a>
+            </div>
+            <div class="item">
+                <a href="javascript:;">分类</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

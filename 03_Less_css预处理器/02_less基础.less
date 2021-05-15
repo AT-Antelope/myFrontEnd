@@ -1,0 +1,32 @@
+﻿/*这是想被暴露出去的注释，这种注释方式会被编译到css文件里*/
+//这是见不得人的注释，这种不会被编译
+
+/*变量的定义*/
+@color: aqua;
+@m: margin;
+@selector: #wrap;
+
+* {
+    @{m}: 0; /*选择器和属性名使用变量参数 @{} */
+    padding: 0;
+}
+
+@{selector} { /*选择器和属性名使用变量参数 @{} */
+    position: relative;
+    width: 300px;
+    height: 400px;
+    margin: 100px auto;
+    border: 1px solid;
+
+    .inner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        width: 100px;
+        height: 100px;
+        background: @color; /*属性值的变量参数可直接使用*/
+    }
+}

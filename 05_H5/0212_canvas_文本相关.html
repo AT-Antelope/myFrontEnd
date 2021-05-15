@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            background: burlywood;
+        }
+
+        #test {
+            background: white;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate3d(-50%,-50%,0);
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var canvas = document.querySelector('#test');
+            ////视口的宽高   !important
+            //canvas.width = document.documentElement.clientWidth;
+            //canvas.height = document.documentElement.clientHeight;
+
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d');
+
+                ctx.fillStyle = 'aqua';
+                ctx.strokeStyle = 'mediumaquamarine';
+                ctx.font = '40px impact';   //默认字体样式:10px sans-serif
+
+                //textAlign，横向，以绘制点为基点，center以基点为中点平分text，left将text左侧对准基点，right将text右侧对准基点
+                //ctx.textAlign = 'center';
+
+                //textBaseline，纵向版align，top、meddle、bottom
+                ctx.textBaseline = 'meddle';
+
+                //ctx.fillText('Antelope', 150, 150);
+                //ctx.strokeText('Antelope', 150, 150);
+
+                //measureText(),返回一个TextMetrics对象，包含关于文本尺寸的信息（例如文本的宽度）
+                //debugger
+                var obj = ctx.measureText('Antelope');
+
+                //垂直水平居中
+                var w = ctx.measureText('Antelope').width;
+                ctx.fillText('Antelope', (canvas.width - w) / 2, (canvas.height - 40) / 2);
+
+            }
+        };//onload
+    </script>
+</head>
+<body>
+    <canvas id="test" width="300" height="300"></canvas>
+</body>
+</html>

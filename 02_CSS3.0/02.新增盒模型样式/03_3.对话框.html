@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,body{
+            height:100%;
+            overflow:hidden;
+        }
+        #test {
+            width: 600px;
+            height: 400px;
+            border: 3px solid;
+            /*圆角*/
+            border-radius: 50%;
+            /*设置字体大小格式，以及居中*/
+            font: 30px helvetica;
+            text-align: center;
+            line-height: 400px; /*行高必须在font后，否则会覆盖掉行高设置*/
+            /*继承后两个伪元素对齐才能限定在此div内，而不是整个页面*/
+            position:relative;
+        }
+
+            #test:before {
+                content: "";
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                border: 3px solid;
+                /*将位置绝对于此div内，而不是固定在内容前*/
+                position: absolute;
+                bottom: -10px;
+                right: -10px;
+            }
+
+            #test:after {
+                content: "";
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                border: 3px solid;
+                /*将位置绝对于此div内，而不是固定在内容后*/
+                position: absolute;
+                bottom: -40px;
+                right: -40px;
+            }
+    </style>
+</head>
+<body>
+    <div id="test">AT</div>
+</body>
+</html>

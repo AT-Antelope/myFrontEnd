@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        #test {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            background: aqua;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var canvas = document.querySelector('#test');
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d');
+
+                var flag = 0;
+                var scale = 0;
+                var flagScale = 0;
+                ctx.save();
+                ctx.translate(150, 150);
+                ctx.beginPath();
+                ctx.fillRect(-50, -50, 100, 100);
+                ctx.restore();
+
+                setInterval(function () {
+                    flag++;
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.save();
+                    ctx.translate(150, 150);
+                    ctx.rotate(flag * Math.PI / 180);
+
+                    //scale部分
+                    if (scale >= 100) {
+                        flagScale = -1;
+                    } else if (scale <= 0) {
+                        flagScale = 1;
+                    }
+                    scale += flagScale;
+                    ctx.scale(scale / 50, scale / 50);  //1~100/50，50分之1 至 50分之100，即0到2倍scale
+
+                    ctx.beginPath();
+                    ctx.fillRect(-50, -50, 100, 100);   q
+                    ctx.restore();
+
+                }, 1000 / 30);
+
+            }
+
+        };//onload
+    </script>
+</head>
+<body>
+    <canvas id="test" width="300" height="300">
+        <span>您的浏览器不支持canvas，请换成谷歌</span>
+    </canvas>
+</body>
+</html>

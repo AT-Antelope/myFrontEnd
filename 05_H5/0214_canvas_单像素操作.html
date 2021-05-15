@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            background: burlywood;
+        }
+
+        #test {
+            background: white;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate3d(-50%,-50%,0);
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var canvas = document.querySelector('#test');
+            ////视口的宽高   !important
+            //canvas.width = document.documentElement.clientWidth;
+            //canvas.height = document.documentElement.clientHeight;
+
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d');
+
+                ctx.save();
+                ctx.fillStyle = 'aqua';
+                ctx.beginPath();
+                ctx.fillRect(50, 50, 100, 100);
+                ctx.restore();
+
+                var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+                //读取像素颜色
+                //var color = getPxInfo(imgData, 50, 50);
+                //console.log(color);
+
+                //更改像素颜色
+                for (var i = 0; i < imgData.width; i++) {   //循环改变一行中每一个像素点，实现改变一行的颜色
+                    setPxInfo(imgData, i, 49, [0, 0, 0, 255]); //更改为黑色像素块
+                }
+                ctx.putImageData(imgData, 0, 0);
+
+            }
+
+            function getPxInfo(imgData, x, y) {
+                var colorArray = [];
+                var data = imgData.data;
+                var w = imgData.width;
+                var h = imgData.height;
+
+                colorArray[0] = data[(y * w + x) * 4];       //r
+                colorArray[1] = data[(y * w + x) * 4 + 1];   //g
+                colorArray[2] = data[(y * w + x) * 4 + 2];   //b
+                colorArray[3] = data[(y * w + x) * 4 + 3];   //a
+                return colorArray;  //需要获取所以返回想知道的结果
+            };
+
+            function setPxInfo(imgData, x, y, colorArray) {
+                var data = imgData.data;
+                var w = imgData.width;
+                var h = imgData.height;
+
+                data[(y * w + x) * 4] = colorArray[0];   //r
+                data[(y * w + x) * 4 + 1] = colorArray[1];  //g
+                data[(y * w + x) * 4 + 2] = colorArray[2]; //b
+                data[(y * w + x) * 4 + 3] = colorArray[3]; //a
+            };
+        };//onload
+    </script>
+</head>
+<body>
+    <canvas id="test" width="300" height="300"></canvas>
+</body>
+</html>

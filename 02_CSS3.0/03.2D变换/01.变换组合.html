@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html{
+            height:100%;
+            overflow:hidden;
+        }
+        body{
+            width:60%;
+            height:60%;
+            border:1px solid ;
+            margin:100px auto 0;    /*上 左右 下*/
+            /*overflow:hidden;*/
+        }
+        #dv1{
+            width:100px;
+            height:100px;
+            background:aqua;
+            line-height:100px;
+            text-align:center;
+            transition:2s;
+            margin-top:50px
+        }
+        #dv2{
+            width:100px;
+            height:100px;
+            background:aquamarine;
+            line-height:100px;
+            text-align:center;
+            transition:2s;
+            margin-top:150px;
+        }
+        /*组合变换时，切记计算方向是从右往左计算的,但动画顺序还是从左往右，因为位移动画是参照所有计算完后的最后位置才开始动画的,不同顺序会导致不同结果*/
+        body:hover #dv1{
+            /*transform:translateX(100px) scale(2);*/
+            transform:translateX(100px) rotate(180deg); /*坐标系方向也会跟着改变*/
+
+        }
+        body:hover #dv2{
+            /*transform:scale(2) translateX(100px);*/
+            transform:rotate(180deg) translateX(100px);
+        }
+    </style>
+</head>
+<body>
+    <div id="dv1">先移</div>
+    <div id="dv2">后移</div>
+</body>
+</html>

@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      /*选中placeholder*/
+      input::-webkit-input-placeholder {
+        color: aqua;
+      }
+
+      mark {
+        /*萌娘百科*/
+        background-color: black;
+      }
+
+      mark:hover {
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <hr />
+    -------状态标签-------
+    <hr />
+
+    <!-- meter -->
+    <!-- 默认是0~1，可通过改变min和max值来调整 -->
+    <!-- low和high设置高低标准，偏低或偏高都显示银黄色 -->
+    <meter value="60" min="20" max="100" low="40" high="80"></meter>
+    <meter value="30" min="20" max="100" low="40" high="80"></meter>
+    <meter value="90" min="20" max="100" low="40" high="80"></meter>
+    <!--optimum: 最优段-->
+    <meter
+      value="50"
+      min="20"
+      max="100"
+      low="40"
+      high="80"
+      optimum="55"
+    ></meter>
+
+    <hr />
+
+    <!-- progress -->
+    <progress value="50" max="100"></progress>
+    <!-- 不给value会自己动，应该是bug -->
+    <progress max="100"></progress>
+
+    <br />
+    <br />
+    <hr />
+    -------列表标签-------
+    <hr />
+
+    <!-- datalist -->
+    <!-- 直接css里改color是不能改变placehoder里的颜色的，但使用伪元素的input::-webkit-input-placeholder可以修改 -->
+    <input type="text" placeholder="请选择一个选项" list="ATList" />
+    <datalist id="ATList">
+      <option value="1">AT</option>
+      <option value="2">ATM</option>
+      <option value="3">ATLP</option>
+      <option value="4">AnTil</option>
+    </datalist>
+
+    <hr />
+
+    <!-- details -->
+    <!-- open属性，设置打开默认值 -->
+    <details open>
+      <summary>AT</summary>
+      <p>ATM</p>
+      <p>ATLP</p>
+      <p>AnTil</p>
+    </details>
+
+    <br />
+
+    <br />
+    <br />
+    <hr />
+    -------注释标签-------
+    <hr />
+
+    <span>
+      这个字念<ruby>淦<rt>gan</rt></ruby>
+    </span>
+
+    <br />
+    <br />
+    <hr />
+    -------标记标签-------
+    <hr />
+
+    <!-- 萌娘百科 -->
+    <span>这是一个<mark title="你知道的太多了">标记</mark>标签</span>
+
+    <br />
+    <br />
+    <hr />
+    
+    ------- aside -------
+    <hr />
+
+    this's a attribute of aside
+    <aside>aside</aside>
+  </body>
+</html>

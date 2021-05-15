@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #test {
+            background: aqua;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate3d(-50%,-50%,0);
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var canvas = document.querySelector('#test');
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d');
+
+                //全局透明度设置，影响到canvas里所有图形的透明度
+                //ctx.globalAlpha = .5;
+
+                /*
+                  globalCompositeOperation覆盖合成
+                  destination: 已经绘制过的图形(目标)
+                  source: 新的图像(源)
+
+                  参数:
+                  source-over(default): 源在上面，新的图像层级比较高
+                  source-in: 只留下源与目标重叠部分(源的那部分)
+                  source-out: 只留下超过源的那部分
+                  source-atop: 砍掉源溢出的部分
+
+                  改为 destinaton- 前缀后，效果相反
+                */
+
+
+                ctx.fillStyle = 'red';
+                ctx.fillRect(0, 0, 100, 100);
+                ctx.globalCompositeOperation = 'source-atop'; //设置时要有已经绘制过的图形(目标)
+                ctx.fillStyle = 'green';
+                ctx.fillRect(50, 50, 100, 100);
+            }
+        };//onload
+    </script>
+</head>
+<body>
+    <canvas id="test" width="300" height="300"></canvas>
+</body>
+</html>

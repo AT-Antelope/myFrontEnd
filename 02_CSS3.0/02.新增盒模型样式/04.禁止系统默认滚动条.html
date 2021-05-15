@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+    <style type="text/css">
+        *{
+            margin:0;
+            padding:0;
+        }
+        html{
+            height:100%;
+            overflow:hidden;
+        }
+        body{
+            height:100%;
+            overflow:hidden;
+        }
+        #bodyWrap{
+            height:100%;
+            overflow:auto;
+            border:10px solid red;
+        }
+        #aqua{  /*此时初始块为bodyWrap，所以即使是IE6及以前版本也能实现fixed效果*/
+            width:200px;
+            height:200px;
+            background-color:aqua;
+            position:absolute;
+            top:50px;
+            left:50px;
+        }
+    </style>
+</head>
+<body>
+    <div id="bodyWrap">
+        <div id="aqua"></div>
+        <div id="text" style="height:3000px;"></div>"
+    </div>
+</body>
+</html>

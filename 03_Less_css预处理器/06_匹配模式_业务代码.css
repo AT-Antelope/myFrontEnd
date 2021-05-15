@@ -1,0 +1,7 @@
+/* 三角形方向箭头 */
+#wrap {
+  border-width: 100px;
+  border-style: solid dashed dashed dashed;
+  /* 上右下左 */
+  border-color: #00ffff transparent transparent transparent;
+}

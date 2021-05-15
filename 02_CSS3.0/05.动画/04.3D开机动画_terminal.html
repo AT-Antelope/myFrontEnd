@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="04.imgData.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var pNode = document.querySelector('#wrap > .inner > p');
+            var arr = [];   //用ajax代替
+            var flag = 0;
+            //获取所有地址，以拼接数组的方式
+            for (item in imgSrcs) {
+                arr = arr.concat(imgSrcs[item]);    //此处imgSrcs为引用imgData.js里的数组
+            }
+
+            for (var i = 0; i < arr.length; i++) {
+                var img = new Image();
+                img.src = arr[i];
+                img.onload = function () {
+                    flag++;
+                    pNode.innerHTML = 'Loading ' + (Math.round(flag / arr.length * 100)) + '%'; //计算百分比进度
+
+                    // if ((flag / arr.length) == 1) {   //自加，在加载完后提示已加载
+                    //     alert('Page was loaded!');
+                    // }
+                };
+                img.onerror = function () {
+                    console.log('src error!');
+                };
+
+            }
+        };//onload
+    </script>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #wrap {
+            height: 100%;
+            position: relative;
+            background: gray;
+            /*perspective:200px;*/
+        }
+
+        #wrap>.inner {
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        #wrap>.inner>img {
+            width: 30%;
+            /*缩小图片*/
+            margin-top: -80px;
+            animation: move 2s linear infinite;
+        }
+
+        @keyframes move {
+            from {
+                transform: translate3d(-50%, -50%, 0) rotateY(0deg);
+            }
+
+            to {
+                transform: translate3d(-50%, -50%, 0) rotateY(360deg);
+            }
+        }
+
+
+        #wrap>.inner>img,
+        #wrap>.inner>p {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate3d(-50%, -50%, 0) rotateY(0deg);
+            white-space: nowrap;
+            /*禁止自动换行*/
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <div class="inner">
+            <img src="../../pic/ico/Star2_transparency.png" alt="img" />
+            <p>Loading 0%</p>
+        </div>
+    </div>
+</body>
+
+</html>

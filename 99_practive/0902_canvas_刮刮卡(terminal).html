@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body,
+        html {
+            height: 100%;
+            overflow: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        #wrap {
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        #wrap,
+        ul,
+        ul>li {
+            height: 100%;
+        }
+
+        ul>li {
+            background: url("https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3222548677,2501081271&fm=26&gp=0.jpg") no-repeat;
+            background-size: 100% 100%;
+            /*取消height的设定，可以避免图像扭曲严重，但底部过长的话会导致出现空白区域，需要多图滑动的话不建议*/
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: 1s;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            let arr = [a,b,c,c,b,x,s,a,a]
+            let arr1 = arr.sort((a, b) => a - b)
+            console.log(arr1)   // [1, 2, 3, 4, 6, 10, 22]
+
+            var canvas = document.querySelector('canvas');
+            canvas.width = document.documentElement.clientWidth;
+            canvas.height = document.documentElement.clientHeight;
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d');
+
+                var img = new Image();
+                img.setAttribute('crossOrigin', 'anonymous');    //需要放在图片赋值前，否则部分浏览器会报错
+                img.src = 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1601331220,2253641753&fm=26&gp=0.jpg';
+                img.onload = function () {
+                    draw();
+                };//img.onload
+            }
+
+            function draw() {
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                //点击时出现点
+                canvas.addEventListener('touchstart', function (e) {
+                    e = e || event;
+                    var touchC = e.changedTouches[0];   //如果同时有多个触点，只采取第一个
+
+                    var x = touchC.clientX - canvas.offsetLeft;
+                    var y = touchC.clientY - canvas.offsetTop;
+
+                    ctx.globalCompositeOperation = 'destination-out';
+                    ctx.lineWidth = 40;
+                    // 末端的属性
+                    ctx.lineCap = 'round';
+                    // 两个点连在一起的显示方式
+                    ctx.lineJoin = 'round'; //解决拐弯时会出现尖角
+
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(x, y);
+                    ctx.stroke();
+                    ctx.restore();
+
+                });
+
+                //滑动时划出线
+                canvas.addEventListener('touchmove', function (e) {
+                    e = e || event;
+                    var touchC = e.changedTouches[0];   //如果同时有多个触点，只采取第一个
+
+                    var x = touchC.clientX - canvas.offsetLeft;
+                    var y = touchC.clientY - canvas.offsetTop;
+
+                    ctx.save();
+                    //ctx.globalCompositeOperation = 'destination-out'; //改为在touchstart事件里使用全局样式
+                    //ctx.beginPath();      //不能清除路径，否则会变成一个个圆，而不是长条
+                    //ctx.arc(x, y, 20, 0, 360 * Math.PI / 180);    //快速滑动会有间隔，且划曲线时会画半圆
+                    ctx.lineTo(x, y);
+                    ctx.stroke();
+                    ctx.restore();
+
+                    //https://blog.csdn.net/raingrains/article/details/108821833
+                    //body,html {
+                    //     height: 100%;
+                    //     overflow: hidden;
+                    //     -webkit-overflow-scrolling: touch;
+                    // }
+
+                    // #wrap {
+                    //     overflow: auto;
+                    //     -webkit-overflow-scrolling: touch;
+                    // }
+                    e.preventDefault(); //解决移动端浏览器下拉显示内核提供商消息,,导致下滑时绘制失效的问题，加上下面的{passive:false}
+                }, { passive: false });
+
+                //已经划了超过50%，且松开时清除canvas
+                var flag = 0;   //用于记录透明px数量
+                canvas.addEventListener('touchend', function () {
+                    var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);  //拿到canvas里每个px的colorArray
+                    var allPx = imgData.width * imgData.height; //px总数
+
+                    //循环记录透明px数量
+                    for (var i = 0; i < allPx; i++) {
+                        if (imgData.data[i * 4 + 3] === 0) {
+                            flag++;
+                        }
+                    }
+
+                    if (flag >= allPx * .7) {    //原为一半flag >= allPx / 2    现自改70%
+                        canvas.style.opacity = 0;
+                    }
+                });
+
+                //变换完成后清除canvas，指canvas的opacity透明度变为0后
+                canvas.addEventListener('transitionend', function () {
+                    this.remove();
+                });
+            };
+        };//onload
+    </script>
+</head>
+
+<body>
+    <div id="wrap">
+        <canvas></canvas>
+        <ul>
+            <li></li>
+        </ul>
+    </div>
+</body>
+
+</html>

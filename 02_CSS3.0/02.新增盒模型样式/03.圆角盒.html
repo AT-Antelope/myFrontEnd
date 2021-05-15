@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 200px;
+            height: 200px;
+            border: 3px solid aqua;
+            /*盒居中*/
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            /*圆角，低版本不支持百分比，最好使用px值，特别是移动端浏览器随操作系统版本*/
+            /*border-radius: 50%;*/
+            border-radius:10px 20px 30px 40px;  /*上右下左*/
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+</body>
+</html>

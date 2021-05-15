@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        /*清除浮动:
+            1.给父级加高度
+                拓展性不好
+
+            2.开启BFC (IE 6 7 下不支持BFC).
+                Overflow:hidden;    (移动端常用)
+                定位
+                浮动
+
+            3.br标签 (IE6 不支持）
+                违反了结构 行为 样式相分离的原则
+
+            4.空标签 <div>
+                违反了结构 行为 样式相分离的原则
+                IE6下的元素最小高度为19px
+                可以尝试给元素的fontsize设置为0 --> 2px
+
+            5.伪元素 + 开启haslayout
+                因为IE6 7下不支持伪元素，所以要额外的去开启haslayout
+        */
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /*开启hasLayout，可通过放大1倍来实现，既不影响原元素，又能开启hasLayout*/
+        .clearfix {
+            *zoom: 1;
+        }
+
+        .clearfix:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+﻿/* 带参数的混合，类似于方法，但叫混合 */
+/* 带参数的混合 */
+.juzhong(@w:30px,@h:30px,@c:aquamarine) { //width,height,color   冒号后面为默认值
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: @w;
+    background: @c;
+    height: @h;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#wrap {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    margin: 100px auto;
+    border: 1px solid;
+
+    .inner {
+        .juzhong(@c:aqua);  /*指定参数传实参*/
+    }
+    .inner2{
+        .juzhong(200px,200px,mediumaquamarine);
+    }
+}

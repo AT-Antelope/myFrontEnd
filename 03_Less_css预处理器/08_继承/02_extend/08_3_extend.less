@@ -1,0 +1,26 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+@import "./08_2_mediate.less";
+#wrap{
+    position:relative;
+    width:300px;
+    height:300px;
+    border:1px solid;
+    margin:0 auto;
+    .inner{
+        &:extend(.mediate all); //添加all参数，继承所有属性
+        &:nth-child(1){
+            width:100px;
+            height:100px;
+            background-color:aqua;
+        }
+        &:nth-child(2){
+            width:50px;
+            height:50px;
+            background-color:mediumaquamarine;
+        }
+    }
+}

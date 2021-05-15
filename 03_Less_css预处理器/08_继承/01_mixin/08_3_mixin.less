@@ -1,0 +1,21 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+@import './08_2_mediate.less';
+#wrap{
+    position:relative;
+    width:300px;
+    height:300px;
+    border:1px solid;
+    margin:0 auto;
+    .inner{
+        &:nth-child(1){
+            .mediate(100px,100px,aqua);
+        }
+        &:nth-child(2){
+            .mediate(50px,50px,mediumaquamarine);
+        }
+    }
+}

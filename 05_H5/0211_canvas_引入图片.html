@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            background: burlywood;
+        }
+
+        #test {
+            background: white;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate3d(-50%,-50%,0);
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var canvas = document.querySelector('#test');
+
+            ////视口的宽高   !important
+            //canvas.width = document.documentElement.clientWidth;
+            //canvas.height = document.documentElement.clientHeight;
+
+            if (canvas.getContext) {
+                var ctx=canvas.getContext('2d');
+
+                //引入图片
+                var img=new Image();
+                img.src = '../pic/pic/Aqua.jpg';
+                img.onload = function () {
+                    //draw();
+                    //useBackground();
+                    //linearGradient();
+                    radialGradient();
+                };//img.onload
+
+                //绘制图片,需要img元素
+                function draw() {
+                    ctx.drawImage(img, 0, 0, img.width, img.height);
+                };
+
+                //使用背景，需要img元素
+                function useBackground() {
+                    var pattern = ctx.createPattern(img, 'no-repeat'); 
+                    ctx.fillStyle = pattern;
+                    ctx.fillRect(0, 0, 300, 300);
+                };
+
+                //线性渐变,createLinearGradient(x1,y1,x2,y2)
+                //两点之间才会渐变
+                function linearGradient() {
+                    var gradient = ctx.createLinearGradient(0, 0, 300, 300);
+                    gradient.addColorStop(0, 'mediumaquamarine');
+                    gradient.addColorStop(.5, 'aqua');
+                    gradient.addColorStop(1, 'burlywood');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, 300, 300);
+                };
+
+                //镜像渐变,createRadialGradient(x1,y1,r1,x2,y2,r2)
+                //两个圆之间才会渐变
+                function radialGradient() {
+                    var gradient = ctx.createRadialGradient(150, 150, 50, 150, 150, 100);
+                    gradient.addColorStop(0, 'mediumaquamarine');
+                    gradient.addColorStop(.5, 'aqua');
+                    gradient.addColorStop(1, 'green');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, 300, 300);
+                };
+
+            }
+        };//onload
+    </script>
+</head>
+<body>
+    <canvas id="test" width="300" height="300"></canvas>
+</body>
+</html>
