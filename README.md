@@ -1,2 +1,2 @@
 # myFrontEnd
-It's just a backup folder that AT's learning coding
+It's just a folder backup for learning the code
