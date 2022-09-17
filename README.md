@@ -1,2 +1,2 @@
 # myFrontEnd
-It's just a folder backup for personal learning code
+It's just a folder backup of personal learning code
